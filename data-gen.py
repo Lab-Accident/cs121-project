@@ -67,13 +67,17 @@ def generate_email(first, last, domain):
         1: f"{first}.{last}",
         2: f"{first[0]}{last}",
         3: f"{first}_{last}",
-        4: f"{first}{last}",
-        5: f"{first[0]}{last}{number}",
-        6: f"{first}{fake.word().lower()}{number}",
-        7: f"{first[0]}{last}{fake.word().lower()}",
-        8: f"{fake.word().lower()}{fake.word().lower()}{number}"
+        4: f"{first}{last[0]}{number}",
+        5: f"{first}{last}"[:random.randint(5, 15)],
+        6: f"{first[0]}{last}"[:random.randint(5, 15)],
+        7: f"{first}{last}",
+        8: f"{first[0]}{last}{number}",
+        9: f"{last}.{first}",
+        10: f"{first}{fake.word().lower()}{number}",
+        11: f"{first[0]}{last}{fake.word().lower()}",
+        12: f"{fake.word().lower()}{fake.word().lower()}{number}"
     }
-    email_format = email_formats[random.randint(1, 8)]
+    email_format = email_formats[random.randint(1, 12)]
     
     return f"{email_format}@{domain}"
 
