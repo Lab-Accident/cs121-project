@@ -1,6 +1,6 @@
 """
-TODO: Student name(s):
-TODO: Student email(s):
+Names: Alexandra Rolfness, Maddie Ramos:
+Emails: maddie@caltech.edu, arolfnes@caltech.edu 
 TODO: High-level program overview
 
 ******************************************************************************
@@ -23,7 +23,7 @@ TODO:
   This includes replacing everything in this *** section!
 ******************************************************************************
 """
-# TODO: Make sure you have these installed with pip3 if needed
+
 import sys  # to print error messages to sys.stderr
 import mysql.connector
 # To get error codes from the connector, useful for user-friendly

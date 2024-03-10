@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS shelves;
 DROP TABLE IF EXISTS on_shelf;
 DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS genre;
+DROP TABLE IF EXISTS book_genres;
 
 -- Represents a user, uniquely identified by their user_id.
 CREATE TABLE users (
