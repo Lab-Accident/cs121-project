@@ -95,6 +95,7 @@ CREATE TABLE reviews (
     star_rating DECIMAL(2, 1) NOT NULL,
     review_text TEXT,
     review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (user_id, isbn),
     PRIMARY KEY (review_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE
