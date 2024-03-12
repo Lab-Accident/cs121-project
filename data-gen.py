@@ -9,14 +9,13 @@ fake = Faker()
 =====================================
 CREATING BOOKS.CSV
     isbn VARCHAR(13)
-    author VARCHAR(255)
     title VARCHAR(255)
     publisher VARCHAR(50)
     year_published YEAR
     synopsis TEXT
     language_code CHAR(3)
     num_pages INT
-    cover_photo BLOB
+    cover_photo_url VARCHAR(255)
     series_name VARCHAR(255)
 =====================================
 '''
@@ -29,8 +28,8 @@ books_df = books_df[imported_columns]
 
 books_df['year_published'] = pd.to_datetime(books_df['year_published'], errors='coerce').dt.year
 books_df['synopsis'] = [fake.paragraph(nb_sentences=5, variable_nb_sentences=True) for _ in range(len(books_df))]
-books_df['author'] = books_df['author'].str.split('/').str[0]
-books_df['cover_photo'] = [fake.binary(length=1000) for _ in range(len(books_df))]
+books_df['cover_photo'] = [fake.url() for _ in range(len(books_df))]
+
 
 series_books_mapping = {} 
 for _ in range(int(len(books_df) * PERCENT_SERIES)):
@@ -39,9 +38,38 @@ for _ in range(int(len(books_df) * PERCENT_SERIES)):
     book_indices = np.random.choice(books_df.index, num_books_in_series, replace=False)
     series_books_mapping[series_name] = book_indices
 
-books_df['series_name'] = ''
+books_df['series_name'] = None
 for series_name, book_indices in series_books_mapping.items():
     books_df.loc[book_indices, 'series_name'] = series_name
+
+
+
+
+
+
+'''
+=====================================
+CREATING BOOK_AUTHORS.CSV
+    isbn CHAR(13)
+    author_id INT 
+
+CREATING AUTHORS.CSV;
+    author_id INT
+    author_name VARCHAR(255)
+=====================================
+'''
+authors_df = pd.DataFrame(books_df['author'].unique(), columns=['author_name'])
+
+book_authors_df = pd.DataFrame(columns=['isbn', 'author'])
+for i in range(len(books_df)):
+    authors = books_df.at[i, 'author'].split('/')
+    isbn = books_df.at[i, 'isbn']
+    for author in authors:
+        new_row = pd.DataFrame({'isbn': [isbn], 'author': [author]})
+        book_authors_df = pd.concat([book_authors_df, new_row], ignore_index=True)
+
+books_df.drop(columns=['author'], inplace=True)
+
 
 
 
@@ -99,6 +127,7 @@ users_df = pd.DataFrame(users_data, columns=['first_name', 'last_name', 'email',
 
 
 
+
 '''
 =====================================
 CREATING FRIENDS.CSV
@@ -147,6 +176,9 @@ for user_id in range(len(users_df)):
         reviews_df = pd.concat([reviews_df, new_row], ignore_index=True)
 
 
+
+
+
 '''    
 =====================================
 CREATING SHELVES.CSV
@@ -175,6 +207,8 @@ for user_id in range(len(users_df)):
 
 
 
+
+
 '''    
 =====================================
 CREATING ON_SHELF.CSV
@@ -191,6 +225,10 @@ for shelf_id in range(len(shelves_df)):
     for isbn in random.sample(list(books_df['isbn']), num_books):
         new_row = pd.DataFrame({'isbn': [isbn], 'shelf_id': [shelf_id]})
         on_shelf_df = pd.concat([on_shelf_df, new_row], ignore_index=True)
+
+
+
+
 
 
 '''    
@@ -227,13 +265,14 @@ book_genres_df = pd.DataFrame(book_genres_data, columns=['isbn', 'genre_name'])
 
 
 
-
 '''
 =====================================
 SAVING TO CSV
 =====================================
 '''
 books_df.to_csv("gen_csvs/books.csv", index=False)
+authors_df.to_csv("gen_csvs/authors.csv", index=False)
+book_authors_df.to_csv("gen_csvs/book_authors.csv", index=False)
 users_df.to_csv("gen_csvs/users.csv", index=False)
 friends_df.to_csv("gen_csvs/friends.csv", index=False)
 reviews_df.to_csv("gen_csvs/reviews.csv", index=False)

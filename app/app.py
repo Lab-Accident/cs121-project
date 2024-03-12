@@ -69,6 +69,7 @@ def get_conn():
             sys.stderr('An error occurred, please contact the administrator.')
         sys.exit(1)
 
+
 # ----------------------------------------------------------------------
 # Functions for Command-Line Options/Query Execution
 # ----------------------------------------------------------------------
@@ -93,17 +94,6 @@ def example_query():
         else:
             # TODO: Please actually replace this :) 
             sys.stderr('An error occurred, give something useful for clients...')
-
-
-
-# ----------------------------------------------------------------------
-# Functions for Logging Users In
-# ----------------------------------------------------------------------
-# Note: There's a distinction between database users (admin and client)
-# and application users (e.g. members registered to a store). You can
-# choose how to implement these depending on whether you have app.py or
-# app-client.py vs. app-admin.py (in which case you don't need to
-# support any prompt functionality to conditionally login to the sql database)
 
 
 # ----------------------------------------------------------------------
@@ -141,10 +131,9 @@ def show_admin_options():
     modifying <x> based on a given id, removing <x>, etc.
     """
     print('What would you like to do? ')
-    print('  (x) - something nifty for admins to do')
-    print('  (x) - another nifty thing')
-    print('  (x) - yet another nifty thing')
-    print('  (x) - more nifty things!')
+    print('  (a) - add book')
+    print('  (d) - delete book')
+    print('  (r) - remove user')
     print('  (q) - quit')
     print()
     ans = input('Enter an option: ').lower()

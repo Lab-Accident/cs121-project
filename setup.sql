@@ -7,9 +7,10 @@ DROP TABLE IF EXISTS on_shelf;
 DROP TABLE IF EXISTS shelves;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS genre;
-DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS book_authors;
+DROP TABLE IF EXISTS authors;
 DROP TABLE IF EXISTS users;
-
+DROP TABLE IF EXISTS books;
 
 -- Represents a user, uniquely identified by their user_id.
 CREATE TABLE users (
@@ -20,14 +21,13 @@ CREATE TABLE users (
     email VARCHAR(320) NOT NULL UNIQUE,
     password VARCHAR(30) NOT NULL,
     -- Date the user joined, default time when added
-    join_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    join_date TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (user_id)
 );
 
 -- Represents a book, uniquely identified by its ISBN.
 CREATE TABLE books (
-    isbn VARCHAR(13) NOT NULL,
-    author VARCHAR(255) NOT NULL,
+    isbn CHAR(13) NOT NULL,
     title VARCHAR(255) NOT NULL,
     publisher VARCHAR(50),
     year_published YEAR,
@@ -35,10 +35,26 @@ CREATE TABLE books (
     -- Language code, e.g. "eng" for English.
     language_code CHAR(3),
     num_pages INT,
-    cover_photo BLOB,
+    cover_photo_url VARCHAR(255),
     -- The series the book is a part of, if any.
-    series_name VARCHAR(255),
+    series_name VARCHAR(255), default NULL,
     PRIMARY KEY (isbn)
+);
+
+-- Represents a many-to-many relationship between books and authors.
+CREATE TABLE book_authors (
+    isbn CHAR(13) NOT NULL,
+    author_id INT NOT NULL,
+    PRIMARY KEY (isbn, author_id),
+    FOREIGN KEY (isbn) REFERENCES books(isbn) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES authors(author_id) ON DELETE CASCADE
+);
+
+-- Represents an author of a book.
+CREATE TABLE authors (
+    author_id INT AUTO_INCREMENT,
+    author_name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (author_id)
 );
 
 CREATE TABLE genre (
