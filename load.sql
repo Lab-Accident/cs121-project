@@ -7,32 +7,39 @@
 -- source setup.sql; (make sure no warnings appear)
 -- source load.sql; (make sure there are 0 skipped/warnings)
 
-LOAD DATA LOCAL INFILE 'users.csv' INTO TABLE users
+LOAD DATA LOCAL INFILE 'gen_csvs/user_info.csv' INTO TABLE user_info
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
+(first_name, last_name, email, salt, password_hash, join_date);
+
+LOAD DATA LOCAL INFILE 'gen_csvs/friend.csv' INTO TABLE friend
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+
+-- Need to load books first because of foreign key constraints
+LOAD DATA LOCAL INFILE 'gen_csvs/book.csv' INTO TABLE book
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
+(isbn,title,publisher,year_published,language_code,num_pages,synopsis,cover_photo_url,series_name);
+
+LOAD DATA LOCAL INFILE 'gen_csvs/review.csv' INTO TABLE review
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
+(user_id,isbn,star_rating,review_text,review_date);
+
+LOAD DATA LOCAL INFILE 'gen_csvs/shelf.csv' INTO TABLE shelf
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
+(user_id,shelf_name,is_private);
+
+LOAD DATA LOCAL INFILE 'gen_csvs/on_shelf.csv' INTO TABLE on_shelf
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA LOCAL INFILE 'friends.csv' INTO TABLE friends
+LOAD DATA LOCAL INFILE 'gen_csvs/genre.csv' INTO TABLE genre
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
+(genre_name);
+
+LOAD DATA LOCAL INFILE 'gen_csvs/book_genre.csv' INTO TABLE book_genre
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
 
-LOAD DATA LOCAL INFILE 'reviews.csv' INTO TABLE reviews
-FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+LOAD DATA LOCAL INFILE 'gen_csvs/author.csv' INTO TABLE author
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
+(author_name);
 
-LOAD DATA LOCAL INFILE 'shelves.csv' INTO TABLE shelves
-FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE 'on_shelf.csv' INTO TABLE on_shelf
-FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE 'books.csv' INTO TABLE books
-FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE 'genres.csv' INTO TABLE genre
-FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE 'book_genres.csv' INTO TABLE book_genres
-FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE 'authors.csv' INTO TABLE authors
-FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE 'book_authors.csv' INTO TABLE book_authors
+LOAD DATA LOCAL INFILE 'gen_csvs/book_author.csv' INTO TABLE book_author
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
