@@ -69,7 +69,7 @@ BEGIN
         VALUES (new_user_id, 'Currently Reading', 1);
     INSERT INTO shelf (user_id, shelf_name, is_private)
         VALUES (new_user_id, 'Wants to Read', 1);
-END!
+END !
 DELIMITER ;
 
 -- [Problem 1b]
