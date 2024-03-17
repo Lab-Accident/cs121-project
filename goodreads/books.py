@@ -162,7 +162,7 @@ def get_book_summary(conn, isbn):
             genre_str = ', '.join([genre[0] for genre in genres])
             print(f'Genres: {genre_str}\n')
             print(f'Published {year} by {publisher} | ISBN {isbn}')
-
+            print('-' * len(title))
         else:
             print("No book found.")
     except mysql.connector.Error as err:
@@ -205,9 +205,11 @@ def get_book_reading_time(conn, isbn):
         cursor.execute(sql, (isbn,))
         num_pages = cursor.fetchone()[0]
         if num_pages is not None:
-            wpm = int(input("What is your reading speed (words per minute)? Press enter if you don't know: "))
-            if wpm is None:
+            wpm = input("What is your reading speed (words per minute)? Press enter if you don't know: ")
+            if not wpm:
                 wpm = 200
+            else:
+                wpm = int(wpm)
             sql = "SELECT calculate_reading_time(%s, %s) AS minutes"
             cursor.execute(sql, (num_pages, wpm))
             minutes = cursor.fetchone()[0]

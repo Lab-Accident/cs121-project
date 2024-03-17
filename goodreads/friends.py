@@ -107,3 +107,49 @@ def search_friend_by_email(conn, email):
         print(f"User found | ID: #{user_id}, Name: {full_name}, Email: {email}\n")
     else:
         print("No users were found with that email.")
+
+# ----------------------------------------------------------------------
+# Command-Line Functionality
+# ----------------------------------------------------------------------
+def add_friend_ui(conn, user_id, friend_id=None):
+    """
+    Prompts a user to add a friend.
+    """
+    if not friend_id:
+        print("To add a friend, you need to know their user ID.")
+        print("You can search for friends by name or email to find their user ID.")
+        print("If you'd like to go back, enter '0' instead of a user ID.")
+
+        friend_id = int(input("\nWhat is your friend's user ID? "))
+
+    if friend_id != 0:
+        add_friend(conn, user_id, friend_id)
+
+
+def delete_friend_ui(conn, user_id, friend_id=None):
+    """
+    Prompts a user to delete a friend.
+    """
+    if not friend_id:
+        print("To remove a friend, you need to know their user ID.")
+        print("You can search for friends by name or email to find their user ID.")
+        print("If you'd like to go back, enter '0' instead of a user ID.")
+
+        friend_id = int(input("\nWhat is your friend's user ID? "))
+
+    if friend_id != 0:
+        delete_friend(conn, user_id, friend_id)
+
+def search_friends_by_name_ui(conn):
+    """
+    Prompts a user to search for friends by name.
+    """
+    name = input("Enter the name of the friend to search for: ")
+    search_friends_by_name(conn, name)
+
+def search_friend_by_email_ui(conn):
+    """
+    Prompts a user to search for a friend by email.
+    """
+    email = input("Enter the email of the friend to search for: ")
+    search_friend_by_email(conn, email)

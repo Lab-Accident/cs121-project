@@ -179,14 +179,22 @@ def delete_shelf_ui(conn, user_id):
     """
     cursor = conn.cursor()
     try:
-        shelf_name = input("Enter the id of the shelf to delete: ")
+        shelf_id = input("Enter the id of the shelf to delete: ")
+
+        # check the shelf exists
         sql = "SELECT shelf_name FROM shelf WHERE user_id = %s AND shelf_id = %s"
-        cursor.execute(sql, (user_id, shelf_name))
+        cursor.execute(sql, (user_id, shelf_id))
         shelf_name = cursor.fetchone()
+        if not shelf_name:
+            print("Double-check the shelf ID.")
+            return
+
+        # check the shelf is not a default shelf
         if shelf_name in default_shelves:
             print("You cannot delete a default shelf.")
             return
-        delete_shelf(conn, user_id, shelf_name)
+
+        delete_shelf(conn, user_id, shelf_id)
     except mysql.connector.Error as err:
         print("Error deleting shelf:", err)
 
@@ -202,8 +210,9 @@ def add_book_to_shelf_ui(conn, user_id, isbn=None):
     """
     if not isbn:
         isbn = input("Enter the ISBN of the book to add: ")
-    print("Your shelves:")
+    print("\nHere are your shelves:")
     view_shelves(conn, user_id)
+    print()
     shelf_name = input("Enter the ID of the shelf to add the book to: ")
     add_book_to_shelf(conn, isbn, user_id, shelf_name)
 
@@ -216,10 +225,17 @@ def delete_book_from_shelf_ui(conn, user_id):
         conn (MySQL Connection object): connection to the database
         user_id (int): the user's ID
     """
-    shelf_name = input("Enter the name of the shelf to remove the book from: ")
+    print("\nHere are your shelves:")
+    view_shelves(conn, user_id)
+    print()
+    shelf_id = input("Enter the id of the shelf to remove the book from: ")
+
+    print("\nHere are the books on that shelf:")
+    display_shelf(conn, shelf_id)
+    print()
 
     isbn = input("Enter the ISBN of the book to remove: ")
-    delete_book_from_shelf(conn, isbn, user_id, shelf_name)
+    delete_book_from_shelf(conn, isbn, user_id, shelf_id)
 
 
 def display_shelf_ui(conn):

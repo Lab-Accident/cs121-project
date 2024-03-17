@@ -98,7 +98,7 @@ def get_reviews(conn, isbn):
             print("No reviews found.")
         else:
             for row in results:
-                print(f"User ID: {row[0]} | Star Rating: {row[1]}\nReview: {row[2]}\n")
+                print(f"User ID: {row[0]} | Star Rating: {row[1]}\nReview: {row[2]}")
             print()
     except mysql.connector.Error as err:
         print("Error getting reviews:", err)

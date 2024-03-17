@@ -49,6 +49,8 @@ def get_conn():
     Parameters:
         is_admin: bool (default False)
     """
+    # Signing in as admin for permissions; if we expand our grant-permissions
+    # then we can switch between user types here.
     # user_type = 'appadmin' if is_admin else 'appclient'
     # user_pwd = 'adminpw' if is_admin else 'clientpw'
     try:
@@ -63,10 +65,6 @@ def get_conn():
         print('Successfully connected to the Goodreads database!')
         return conn
     except mysql.connector.Error as err:
-        # Remember that this is specific to _database_ users, not
-        # application users. So is probably irrelevant to a client in your
-        # simulated program. Their user information would be in a users table
-        # specific to your database; hence the DEBUG use.
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR and DEBUG:
             sys.stderr.write('Incorrect username or password when connecting to DB.')
         elif err.errno == errorcode.ER_BAD_DB_ERROR and DEBUG:
@@ -86,26 +84,22 @@ def show_options():
     Displays top-level options for users (main menu).
     """
     print('Where would you like to go? ')
-    print('  (1) - Go to your profile')
-    print('  (2) - Search for books')
-    print('  (q) - Quit')
+    print('  (1) Go to your profile')
+    print('  (2) Search for books')
+    print('  (q) Quit')
+    option = input('Enter an option: ').lower()
     print()
-    ans = input('Enter an option: ').lower()
-    if ans == 'q':
+    if option == 'q':
         quit_ui()
-    elif ans == '1':
+    elif option == '1':
         user_profile_menu()
-    elif ans == '2':
+    elif option == '2':
         user_books_menu()
     else:
         print('Invalid option. Please try again.')
         show_options()
 
 
-# Another example of where we allow you to choose to support admin vs.
-# client features  in the same program, or
-# separate the two as different app_client.py and app_admin.py programs
-# using the same database.
 def show_admin_options():
     """
     Displays top-level options for admin users.
@@ -113,11 +107,11 @@ def show_admin_options():
     print('What would you like to do? ')
     print('  (1) - Edit Books')
     print('  (q) - quit')
+    option = input('Enter an option: ').lower()
     print()
-    ans = input('Enter an option: ').lower()
-    if ans == 'q':
+    if option == 'q':
         quit_ui()
-    elif ans == '1':
+    elif option == '1':
         admin_books_menu()
 
 def quit_ui():
@@ -141,34 +135,20 @@ def friends_menu():
     print("  (3) Search for friends by name")
     print("  (4) Search for friends by email")
     print("  (5) View current friends")
-    print("  (6) View friend's profile")
+    print("  (6) View a user's profile")
     print("  (b) Go back")
     print("  (q) Quit")
-    print()
     option = input("Enter an option: ").lower()
+    print()
 
     if option == "1":
-        print("To add a friend, you need to know their user ID.")
-        print("You can search for friends by name or email to find their user ID.")
-        print("If you'd like to go back, enter '0' instead of a user ID.")
-
-        friend_id = int(input("\nWhat is your friend's user ID? "))
-        if friend_id != 0:
-            friends.add_friend(conn, current_user_id, friend_id)
+        friends.add_friend_ui(conn, current_user_id)
     elif option == "2":
-        print("To remove a friend, you need to know their user ID.")
-        print("You can search for friends by name or email to find their user ID.")
-        print("If you'd like to go back, enter '0' instead of a user ID.")
-
-        friend_id = int(input("\nWhat is your friend's user ID? "))
-        if friend_id != 0:
-            friends.delete_friend(conn, current_user_id, friend_id)
+        friends.delete_friend_ui(conn, current_user_id)
     elif option == "3":
-        name = input("Enter the name of the friend to search for: ")
-        friends.search_friends_by_name(conn, name)
+        friends.search_friends_by_name_ui(conn)
     elif option == "4":
-        email = input("Enter the email of the friend to search for: ")
-        friends.search_friend_by_email(conn, email)
+        friends.search_friend_by_email_ui(conn)
     elif option == "5":
         friends.view_friends(conn, current_user_id)
     elif option == "6":
@@ -197,6 +177,7 @@ def shelf_menu():
     print("  (b) Go back")
     print("  (q) Quit")
     option = input("Enter an option: ").lower()
+    print()
 
     if option == "1":
         shelf.create_shelf_ui(conn, current_user_id)
@@ -208,6 +189,12 @@ def shelf_menu():
         shelf.delete_book_from_shelf_ui(conn, current_user_id)
     elif option == "5":
         shelf.display_shelf_ui(conn, current_user_id)
+    elif option == "b":
+        user_profile_menu()
+    elif option == "q":
+        quit_ui()
+
+    shelf_menu()
 
 
 def user_profile_menu(user_id=None):
@@ -222,7 +209,7 @@ def user_profile_menu(user_id=None):
         user_id = current_user_id
     users.print_user_info(conn, user_id)
 
-    print("What would you like to do?")
+    print("\nWhat would you like to do?")
     print("  (1) View shelves")
     if user_id == current_user_id:
         print("  (2) Open your friends menu")
@@ -230,6 +217,7 @@ def user_profile_menu(user_id=None):
     print("  (b) Go back")
     print("  (q) Quit")
     option = input("Enter an option: ").lower()
+    print()
 
     if option == "1":
         shelf.view_shelves(conn, user_id)
@@ -260,17 +248,18 @@ def book_page_menu(isbn):
     Args:
         isbn (str): The ISBN of the book to view
     """
-    print("\nWhat would you like to do?")
+    print("What would you like to do?")
     print("  (1) Add to shelf")
     print("  (2) Rate book")
     print("  (3) Read reviews")
     print("  (4) Get a reading time estimate")
     print("  (b) Go back")
     print("  (q) Quit")
-
     option = input("Enter an option: ").lower()
+    print()
+
     if option == "1":
-        shelf.add_book_to_shelf_ui(conn, current_user_id)
+        shelf.add_book_to_shelf_ui(conn, current_user_id, isbn)
     elif option == "2":
         reviews.add_review_ui(conn, current_user_id, isbn)
     elif option == "3":
@@ -297,8 +286,9 @@ def user_books_menu():
     print("  (3) Open a book's page")
     print("  (b) Go back")
     print("  (q) Quit")
-
     option = input("Enter an option: ").lower()
+    print()
+
     if option == "1":
         title = input("Enter the title of the book to search for: ")
         books.search_book_by_title(conn, title)
@@ -307,7 +297,7 @@ def user_books_menu():
         books.search_book_by_author(conn, author)
     elif option == "3":
         isbn = input("Enter the ISBN of the book to open: ")
-        print(books.get_book_summary(conn, isbn))
+        books.get_book_summary(conn, isbn)
         book_page_menu(isbn)
     elif option == "b":
         show_options()
@@ -329,8 +319,9 @@ def admin_books_menu():
     print("  (4) Delete a book")
     print("  (b) Go back")
     print("  (q) Quit")
-
     option = input("Enter an option: ").lower()
+    print()
+
     if option == "1":
         title = input("Enter the title of the book to search for: ")
         books.search_book_by_title(conn, title)
@@ -363,6 +354,7 @@ def login_menu(as_admin=False):
     print('  (1) Log in')
     print('  (2) Create an account')
     ans = input('Enter an option: ').lower()
+    print()
 
     if ans == '1':
         user_id = login.login_loop(conn, as_admin)
