@@ -1,4 +1,8 @@
 -- CS 121 24wi: Password Management (A6 and Final Project)
+DROP FUNCTION IF EXISTS make_salt;
+DROP FUNCTION IF EXISTS authenticate;
+DROP PROCEDURE IF EXISTS sp_add_user;
+DROP PROCEDURE IF EXISTS sp_change_password;
 
 -- (Provided) This function generates a specified number of characters for using as a
 -- salt in passwords.
@@ -24,25 +28,6 @@ DELIMITER ;
 
 
 -- Our user_info table is create in setup.sql, so we don't need to create it here.
--- Provided (you may modify in your FP if you choose)
--- This table holds information for authenticating users based on
--- a password.  Passwords are not stored plaintext so that they
--- cannot be used by people that shouldn't have them.
--- You may extend that table to include an is_admin or role attribute if you
--- have admin or other roles for users in your application
--- (e.g. store managers, data managers, etc.)
-/* CREATE TABLE user_info (
-    -- Usernames are up to 20 characters.
-    username VARCHAR(20) PRIMARY KEY,
-    -- Salt will be 8 characters all the time, so we can make this 8.
-    salt CHAR(8) NOT NULL,
-    -- We use SHA-2 with 256-bit hashes.  MySQL returns the hash
-    -- value as a hexadecimal string, which means that each byte is
-    -- represented as 2 characters.  Thus, 256 / 8 * 2 = 64.
-    -- We can use BINARY or CHAR here; BINARY simply has a different
-    -- definition for comparison/sorting than CHAR.
-    password_hash BINARY(64) NOT NULL
-); */
 
 -- [Problem 1a]
 -- Adds a new user to the user_info table, using the specified password (max
@@ -52,31 +37,39 @@ DELIMITER ;
 -- We also need a first name and optional last name.
 DELIMITER !
 CREATE PROCEDURE sp_add_user(
-    email VARCHAR(20),
-    password VARCHAR(20),
-    first_name VARCHAR(30),
-    last_name VARCHAR(30))
+    in_email VARCHAR(320),
+    in_password VARCHAR(20),
+    in_first_name VARCHAR(30),
+    in_last_name VARCHAR(30),
+    in_is_admin BOOLEAN)
 BEGIN
-    DECLARE salt CHAR(8);
+    DECLARE salt VARCHAR(20);
     DECLARE hash BINARY(64);
+    DECLARE new_user_id INT;
+
+    -- Generate salt using the make_salt function
     SET salt = make_salt(8);
-    SET hash = SHA2(CONCAT(salt, password), 256);
+
+    -- Hash the password
+    SET hash = SHA2(CONCAT(salt, in_password), 256);
 
     -- Insert user into the table
     INSERT INTO
-        user_info (first_name, last_name, email, salt, password_hash, join_date)
-        VALUES (first_name, last_name, email, salt, hash, CURRENT_TIMESTAMP);
+        user_info (first_name, last_name, email, salt, password_hash, is_admin)
+        VALUES (in_first_name, in_last_name, in_email, salt, hash, in_is_admin);
+
+    SELECT LAST_INSERT_ID() INTO new_user_id;
 
     -- Create default shelves for the user
     INSERT INTO shelf (user_id, shelf_name, is_private)
-        VALUES (LAST_INSERT_ID(), 'Favorites', 1);
+        VALUES (new_user_id, 'Favorites', 1);
     INSERT INTO shelf (user_id, shelf_name, is_private)
-        VALUES (LAST_INSERT_ID(), 'Has Read', 1);
+        VALUES (new_user_id, 'Has Read', 1);
     INSERT INTO shelf (user_id, shelf_name, is_private)
-        VALUES (LAST_INSERT_ID(), 'Currently Reading', 1);
+        VALUES (new_user_id, 'Currently Reading', 1);
     INSERT INTO shelf (user_id, shelf_name, is_private)
-        VALUES (LAST_INSERT_ID(), 'Wants to Read', 1);
-END !
+        VALUES (new_user_id, 'Wants to Read', 1);
+END!
 DELIMITER ;
 
 -- [Problem 1b]
@@ -84,7 +77,7 @@ DELIMITER ;
 -- in the user_info table.  Returns 1 if the user appears in the table, and the
 -- specified password hashes to the value for the user. Otherwise returns 0.
 DELIMITER !
-CREATE FUNCTION authenticate(email VARCHAR(20), password VARCHAR(20))
+CREATE FUNCTION authenticate(email VARCHAR(320), password VARCHAR(20))
 RETURNS TINYINT DETERMINISTIC
 BEGIN
     DECLARE pwd_salt CHAR(8);
@@ -109,14 +102,14 @@ DELIMITER ;
 -- Add at least two users into your user_info table so that when we run this file,
 -- we will have examples users in the database.
 -- These users are very simple; we'll have more complex users in the project.
-CALL sp_add_user('maddie@caltech.edu', 'password1', 'Maddie', 'Ramos');
-CALL sp_add_user('arolfnes@caltech.edu', 'password2', 'Alex', 'Rolfness');
+CALL sp_add_user('maddie@caltech.edu', 'password1', 'Maddie', 'Ramos', 1);
+CALL sp_add_user('arolfnes@caltech.edu', 'password2', 'Alex', 'Rolfness', 0);
 
 -- [Problem 1d]
 -- Create a procedure sp_change_password to generate a new salt and change the given
 -- user's password to the given password (after salting and hashing)
 DELIMITER !
-CREATE PROCEDURE sp_change_password(email VARCHAR(20), new_password VARCHAR(20))
+CREATE PROCEDURE sp_change_password(email VARCHAR(320), new_password VARCHAR(20))
 BEGIN
     DECLARE salt CHAR(8);
     DECLARE hash BINARY(64);

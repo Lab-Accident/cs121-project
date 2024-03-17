@@ -30,7 +30,7 @@ def add_review(conn, user_id, isbn, star_rating, review_text):
 def delete_review(conn, user_id, isbn):
     cursor = conn.cursor()
     try:
-        sql = "DELETE FROM reviews WHERE user_id = %s AND isbn = %s"
+        sql = "DELETE FROM review WHERE user_id = %s AND isbn = %s"
         cursor.execute(sql, (user_id, isbn))
         conn.commit()
         print("Review(s) deleted successfully!")
@@ -41,12 +41,27 @@ def delete_review(conn, user_id, isbn):
 def modify_review(conn, user_id, isbn, star_rating, review_text):
     cursor = conn.cursor()
     try:
-        sql = "UPDATE reviews SET star_rating = %s, review_text = %s WHERE user_id = %s AND isbn = %s"
+        sql = "UPDATE review SET star_rating = %s, review_text = %s WHERE user_id = %s AND isbn = %s"
         cursor.execute(sql, (star_rating, review_text, user_id, isbn))
         conn.commit()
         print("Review modified successfully!")
+    except mysql.connector.Error:
+        print("Error modifying review. Make sure you have reviewed this book before.")
+
+def get_reviews(conn, isbn):
+    cursor = conn.cursor()
+    try:
+        sql = "SELECT user_id, star_rating, review_text FROM review WHERE isbn = %s"
+        cursor.execute(sql, (isbn,))
+        results = cursor.fetchall()
+        if not results:
+            print("No reviews found.")
+        else:
+            for row in results:
+                print(f"User ID: {row[0]} | Star Rating: {row[1]}\nReview: {row[2]}\n")
+            print()
     except mysql.connector.Error as err:
-        print("Error modifying review:", err)
+        print("Error getting reviews:", err)
 
 
 
@@ -70,24 +85,28 @@ def show_review_options():
         print("Invalid choice. Please enter a number between 1 and 4.")
 
 
-def add_review_ui(user_id):
-    isbn = input("Enter the ISBN of the book: ")
-    star_rating = input("Enter the star rating (1-5): ")
+def add_review_ui(conn, user_id, isbn=None):
+    # allow for optional isbn parameter (for individual book pages)
+    if isbn is None:
+        isbn = input("Enter the ISBN of the book: ")
+    star_rating = input("Enter your star rating (1-5): ")
     review_text = input("Enter your review: ")
-    add_review(user_id, isbn, star_rating, review_text)
+    add_review(conn, user_id, isbn, star_rating, review_text)
 
 
-def delete_review_ui(user_id, is_admin=False):
-    isbn = input("Enter the ISBN of the book: ")
+def delete_review_ui(conn, user_id, is_admin=False):
+    if isbn is None:
+        isbn = input("Enter the ISBN of the book: ")
     if is_admin:
-        user_id = input("Enter the user ID of the review to delete: ")
+        rev_user_id = input("Enter the user ID of the review to delete: ")
+        delete_review(conn, rev_user_id, isbn)
     else:
-        user_id = user_id
-    delete_review(user_id, isbn)
+        # can only delete your own review
+        delete_review(conn, user_id, isbn)
 
 
-def modify_review_ui(user_id):
+def modify_review_ui(conn, user_id):
     isbn = input("Enter the ISBN of the book: ")
     star_rating = input("Enter the new star rating (1-5): ")
     review_text = input("Enter the new review: ")
-    modify_review(user_id, isbn, star_rating, review_text)
+    modify_review(conn, user_id, isbn, star_rating, review_text)

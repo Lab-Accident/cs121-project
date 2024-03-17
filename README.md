@@ -1,12 +1,8 @@
-When starting MySQL, make sure you do --local-infile=1 to allow for data loading.
-
-We recommend using the generated data we have provided. data-gen.py occasionally generates small errors (i.e., uncommon duplicates) that are qwick manual fixes.
-
 # Data Sources
 
 Our book data is sourced from [this Goodreads Kaggle dataset](https://www.kaggle.com/datasets/jealousleopard/goodreadsbooks). A semi-cleaned form of this dataset with some fields removed is `uncleaned_books.csv`, which we use in `data-gen.py` to generate the `.csv`s we load in `load-data.sql`.
 
-We recommend using the generated data we have provided instead of generating new data with the script. `data-gen.py` occasionally generates small errors (i.e., infrequent duplicates). These are quick to manually fix, but there's no reason to do that given working files.
+We recommend running the app as-is using the generated data we have provided instead of generating new data with the script. `data-gen.py` occasionally generates small errors (i.e., infrequent duplicates). These are quick to manually fix, but there's no reason to do that given working files.
 
 # Database Set-Up
 
@@ -24,6 +20,7 @@ To test some queries, run:
 
 # Application
 
-To run the application, `quit` MySQL and run `python3 app.py` in your terminal.
+To run the application, `quit` MySQL and run `python3 goodreads/app.py` in your terminal.
 
-The application prompts will lead you through.
+- If you create an account while logging in as an admin, it will create an admin account. By default, the user with email `maddie@caltech.edu` and `password1` has admin permissions.
+- Admins can sign in as a user, but users cannot sign in as an admin.

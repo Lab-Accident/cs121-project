@@ -64,7 +64,7 @@ SELECT user_id, COUNT(*) AS num_reviews,
     AVG(star_rating) AS avg_rating,
     COUNT(review_text) AS num_text_reviews
 FROM review
-WHERE user_id = 2
+WHERE user_id = 2;
 
 -- Shelves
 

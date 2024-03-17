@@ -1,4 +1,6 @@
 -- Goodreads Database Setup
+CREATE DATABASE IF NOT EXISTS goodreads;
+USE goodreads;
 
 -- Clean up tables if they already exist.
 DROP TABLE IF EXISTS book_genre;
@@ -26,6 +28,8 @@ CREATE TABLE user_info (
     salt CHAR(8) NOT NULL,
     -- Using SHA-2 with 256-bit hashes; hash is a hex string.
     password_hash BINARY(64) NOT NULL,
+    -- Admin status, default to false
+    is_admin BOOLEAN DEFAULT FALSE,
     -- Date the user joined, default time when added
     join_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id)
@@ -68,9 +72,19 @@ CREATE TABLE book_author (
     FOREIGN KEY (author_id) REFERENCES author(author_id) ON DELETE CASCADE
 );
 
+-- Represents a genre of a book.
 CREATE TABLE genre (
     genre_name VARCHAR(50) UNIQUE,
     PRIMARY KEY (genre_name)
+);
+
+-- Represents a many-to-many relationship between books and genres.
+CREATE TABLE book_genre (
+    isbn CHAR(13),
+    genre_name VARCHAR(50),
+    PRIMARY KEY (isbn, genre_name),
+    FOREIGN KEY (isbn) REFERENCES book(isbn) ON DELETE CASCADE,
+    FOREIGN KEY (genre_name) REFERENCES genre(genre_name) ON DELETE CASCADE
 );
 
 -- Represents a friend relationship between two users.
@@ -109,14 +123,6 @@ CREATE TABLE on_shelf (
     UNIQUE (isbn, shelf_id)
 );
 
-CREATE TABLE book_genre (
-    isbn CHAR(13),
-    genre_name VARCHAR(50),
-    PRIMARY KEY (isbn, genre_name),
-    FOREIGN KEY (isbn) REFERENCES book(isbn) ON DELETE CASCADE,
-    FOREIGN KEY (genre_name) REFERENCES genre(genre_name) ON DELETE CASCADE
-);
-
 -- Represents a review of a book by a user.
 CREATE TABLE review (
     -- Unique identifier for a review.
@@ -136,6 +142,8 @@ CREATE TABLE review (
 
 
 -- Add indexes
+CREATE INDEX idx_email ON user_info(email);
+
 /* CREATE INDEX idx_author ON books(author); */
 
 -- CREATE INDEX idx_isbn ON reviews(isbn);
