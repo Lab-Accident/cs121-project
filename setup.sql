@@ -100,7 +100,7 @@ CREATE TABLE shelf (
 -- Represents a book on a shelf.
 CREATE TABLE on_shelf (
     -- International Standard Book Numbers (ISBNs) uniquely identify books.
-    isbn VARCHAR(13),
+    isbn CHAR(13),
     shelf_id INT,
     PRIMARY KEY (isbn, shelf_id),
     FOREIGN KEY (isbn) REFERENCES book(isbn) ON DELETE CASCADE,
@@ -110,7 +110,7 @@ CREATE TABLE on_shelf (
 );
 
 CREATE TABLE book_genre (
-    isbn VARCHAR(13),
+    isbn CHAR(13),
     genre_name VARCHAR(50),
     PRIMARY KEY (isbn, genre_name),
     FOREIGN KEY (isbn) REFERENCES book(isbn) ON DELETE CASCADE,
@@ -122,7 +122,7 @@ CREATE TABLE review (
     -- Unique identifier for a review.
     review_id INT AUTO_INCREMENT,
     user_id INT,
-    isbn VARCHAR(13),
+    isbn CHAR(13),
     star_rating DECIMAL(2, 1) NOT NULL,
     -- The review text; NULL if none.
     review_text TEXT,

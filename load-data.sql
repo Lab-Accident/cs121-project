@@ -21,7 +21,8 @@ FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
 
 LOAD DATA LOCAL INFILE 'gen_csvs/review.csv' INTO TABLE review
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
-(user_id,isbn,star_rating,review_text,review_date);
+(user_id,isbn,star_rating,@text,review_date)
+SET review_text = NULLIF(@text,'');
 
 LOAD DATA LOCAL INFILE 'gen_csvs/shelf.csv' INTO TABLE shelf
 FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n' IGNORE 1 ROWS
