@@ -6,9 +6,21 @@ DROP TRIGGER IF EXISTS auto_add_to_read_shelf;
 DROP TRIGGER IF EXISTS auto_delete_from_to_read_shelf;
 
 -- Functions
+DELIMITER !
+CREATE FUNCTION calculate_reading_time(
+    num_pages INT,
+    -- Reading speed in words per minute
+    wpm INT
+) RETURNS INT DETERMINISTIC
+BEGIN
+    DECLARE avg_words_per_page INT DEFAULT 250;
+    IF wpm IS NULL THEN
+        SET wpm = 200;
+    END IF;
 
-
-
+    RETURN CEIL((num_pages * avg_words_per_page) / wpm);
+END !
+DELIMITER ;
 
 -- Procedures to add authors and genres to the database given a delimited string
 DELIMITER !
@@ -85,8 +97,6 @@ END !
 DELIMITER ;
 
 -- Procedure to add a new book
--- Note: This would have been simpler with Python, but I think it's good to have
--- in the database for future use.
 DELIMITER !
 CREATE PROCEDURE add_book(
     isbn CHAR(13),
@@ -117,12 +127,6 @@ BEGIN
     CALL add_genres(genre_names, isbn);
 END !
 DELIMITER ;
-
--- Test add_book
-/* CALL add_book('1234567890123', 'Test Book', 'Test Publisher',
-    2021, 'eng', 100, 'Test synopsis', 'test.com', 'Test Series',
-    'Test Author/J.K. Rowling/Test Author2', 'Test Genre/Fantasy/Fiction'); */
-
 
 -- Triggers
 

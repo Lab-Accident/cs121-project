@@ -1,5 +1,12 @@
+"""
+Friend-related functions for the Goodreads database.
+"""
+
 import mysql.connector
 
+# ----------------------------------------------------------------------
+# Functions for Friend Actions
+# ----------------------------------------------------------------------
 
 def find_friends_by_name(conn, name):
     """

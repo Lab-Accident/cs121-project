@@ -1,16 +1,31 @@
+"""
+Review-related functions for the Goodreads database.
+"""
+
 import mysql.connector
 
 # ----------------------------------------------------------------------
 # Functions for Review Operations
 # ----------------------------------------------------------------------
+
 def add_review(conn, user_id, isbn, star_rating, review_text):
+    """
+    Add a review to the database.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        user_id (int): the user's ID
+        isbn (str): the ISBN of the book to review
+        star_rating (float): the star rating (1-5)
+        review_text (str): the review text
+    """
     cursor = conn.cursor()
     try:
         cursor.execute("SELECT COUNT(*) FROM review WHERE user_id = %s AND isbn = %s", (user_id, isbn))
         count = cursor.fetchone()[0]
         if count > 0:
-            modify = input("You have already reviewed this book. Do you want to modify your review? (yes/no): ").strip().lower()
-            if modify == "yes":
+            modify = input("You have already reviewed this book. Do you want to modify your review? (y/n): ").strip().lower()
+            if modify == "y":
                 sql = "UPDATE review SET star_rating = %s, review_text = %s WHERE user_id = %s AND isbn = %s"
                 cursor.execute(sql, (star_rating, review_text, user_id, isbn))
                 conn.commit()
@@ -28,6 +43,14 @@ def add_review(conn, user_id, isbn, star_rating, review_text):
 
 
 def delete_review(conn, user_id, isbn):
+    """
+    Deletes a review from the database.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        user_id (int): the user's ID
+        isbn (str): the ISBN of the book to review
+    """
     cursor = conn.cursor()
     try:
         sql = "DELETE FROM review WHERE user_id = %s AND isbn = %s"
@@ -39,6 +62,16 @@ def delete_review(conn, user_id, isbn):
 
 
 def modify_review(conn, user_id, isbn, star_rating, review_text):
+    """
+    Modifies a review in the database.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        user_id (int): the user's ID
+        isbn (str): the ISBN of the book to review
+        star_rating (float): the star rating (1-5)
+        review_text (str): the review text
+    """
     cursor = conn.cursor()
     try:
         sql = "UPDATE review SET star_rating = %s, review_text = %s WHERE user_id = %s AND isbn = %s"
@@ -49,6 +82,13 @@ def modify_review(conn, user_id, isbn, star_rating, review_text):
         print("Error modifying review. Make sure you have reviewed this book before.")
 
 def get_reviews(conn, isbn):
+    """
+    Get all reviews for a book.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        isbn (str): the ISBN of the book
+    """
     cursor = conn.cursor()
     try:
         sql = "SELECT user_id, star_rating, review_text FROM review WHERE isbn = %s"
@@ -64,28 +104,19 @@ def get_reviews(conn, isbn):
         print("Error getting reviews:", err)
 
 
-
 # ----------------------------------------------------------------------
 # Command-Line Functionality
 # ----------------------------------------------------------------------
-def show_review_options():
-    print("What would you like to do?")
-    print("  (1) Add a review")
-    print("  (2) Delete a review")
-    print("  (3) Modify a review")
-    print()
-    option = input("Enter your choice (1-3): ")
-    if option == "1":
-        add_review_ui()
-    elif option == "2":
-        delete_review_ui()
-    elif option == "3":
-        modify_review_ui()
-    else:
-        print("Invalid choice. Please enter a number between 1 and 4.")
-
 
 def add_review_ui(conn, user_id, isbn=None):
+    """
+    UI for adding a review.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        user_id (int): the user's ID
+        isbn (str, optional): the ISBN of the book; defaults to None
+    """
     # allow for optional isbn parameter (for individual book pages)
     if isbn is None:
         isbn = input("Enter the ISBN of the book: ")
@@ -95,6 +126,14 @@ def add_review_ui(conn, user_id, isbn=None):
 
 
 def delete_review_ui(conn, user_id, is_admin=False):
+    """
+    UI for deleting a review.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        user_id (int): the user's ID
+        is_admin (bool, optional): if the user is an admin; defaults to False.
+    """
     if isbn is None:
         isbn = input("Enter the ISBN of the book: ")
     if is_admin:
@@ -106,6 +145,13 @@ def delete_review_ui(conn, user_id, is_admin=False):
 
 
 def modify_review_ui(conn, user_id):
+    """
+    UI for modifying a review.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        user_id (int): the user's ID
+    """
     isbn = input("Enter the ISBN of the book: ")
     star_rating = input("Enter the new star rating (1-5): ")
     review_text = input("Enter the new review: ")

@@ -83,7 +83,7 @@ def get_conn():
 # ----------------------------------------------------------------------
 def show_options():
     """
-    Displays options users can choose in the application.
+    Displays top-level options for users (main menu).
     """
     print('Where would you like to go? ')
     print('  (1) - Go to your profile')
@@ -108,7 +108,7 @@ def show_options():
 # using the same database.
 def show_admin_options():
     """
-    Displays options specific for admins.
+    Displays top-level options for admin users.
     """
     print('What would you like to do? ')
     print('  (1) - Edit Books')
@@ -226,14 +226,20 @@ def user_profile_menu(user_id=None):
     print("  (1) View shelves")
     if user_id == current_user_id:
         print("  (2) Open your friends menu")
+        print("  (3) Open your shelf menu")
     print("  (b) Go back")
     print("  (q) Quit")
     option = input("Enter an option: ").lower()
 
     if option == "1":
         shelf.view_shelves(conn, user_id)
+        open_shelf = str("Would you like to open a shelf? (y/n): ").lower()
+        if open_shelf == "y":
+            shelf.display_shelf_ui(conn, user_id)
     elif option == "2" and user_id == current_user_id:
         friends_menu()
+    elif option == "3" and user_id == current_user_id:
+        shelf_menu()
     elif option == "b":
         if user_id != current_user_id:
             friends_menu()
@@ -252,7 +258,7 @@ def book_page_menu(isbn):
     a specific book (add to shelf, rate, read reviews, & get time estimate)
 
     Args:
-        isbn (bool): The ISBN of the book to view
+        isbn (str): The ISBN of the book to view
     """
     print("\nWhat would you like to do?")
     print("  (1) Add to shelf")
@@ -270,7 +276,7 @@ def book_page_menu(isbn):
     elif option == "3":
         reviews.get_reviews(conn, isbn)
     elif option == "4":
-        print("Reading time estimate: ", books.get_reading_time_estimate(conn, isbn))
+        books.get_book_reading_time(conn, isbn)
     elif option == "b":
         user_books_menu()
     elif option == "q":
@@ -278,8 +284,13 @@ def book_page_menu(isbn):
     else:
         print("Invalid choice.")
 
+    book_page_menu(isbn)
+
 
 def user_books_menu():
+    """
+    Displays the user books menu, allowing the user to search for books by title or author, and open a book's page.
+    """
     print("What would you like to do?")
     print("  (1) Search for books by title")
     print("  (2) Search for books by author")
@@ -308,6 +319,9 @@ def user_books_menu():
     user_books_menu()
 
 def admin_books_menu():
+    """
+    Displays the admin books menu, allowing the admin to search for books by title or author, add a book, or delete a book.
+    """
     print("What would you like to do?")
     print("  (1) Search for books by title")
     print("  (2) Search for books by author")
@@ -339,10 +353,11 @@ def admin_books_menu():
 
 def login_menu(as_admin=False):
     """
-    Prompts the user to log in or create an account.
+    Login menu which prompts the user to log in or create an account.
 
     Args:
-        as_admin (bool, optional): Whether the user is an admin. Defaults to False.
+        as_admin (bool, optional): Whether the user is trying to log in as
+                                   an admin. Defaults to False.
     """
     print('Would you to log in or create an account?')
     print('  (1) Log in')

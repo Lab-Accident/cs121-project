@@ -1,10 +1,8 @@
+"""
+Book-related functions for the Goodreads database.
+"""
+
 import mysql.connector
-
-#TODO: add book to database
-#TODO: delete book
-#TODO: modify book
-#TODO: search for book
-
 
 # ----------------------------------------------------------------------
 # Helper Functions
@@ -107,7 +105,7 @@ def search_book_by_author(conn, author):
     Search for a book by author.
 
     Args:
-        conn (MySQL Connection object): Connection to the database
+        conn (MySQL Connection object): connection to the database
         author (str): the string to search for in author names
     """
     cursor = conn.cursor()
@@ -134,14 +132,14 @@ def get_book_summary(conn, isbn):
     and some summary statistics.
 
     Args:
-        conn (MySQL Connection object): Connection to the database
+        conn (MySQL Connection object): connection to the database
         isbn (str): ISBN of the book
     """
     cursor = conn.cursor()
     try:
         sql = "SELECT * FROM book WHERE isbn = %s"
         cursor.execute(sql, (isbn,))
-        isbn, title, publisher, year, _, num_pages, synopsis, _, _ = cursor.fetchone()
+        isbn, title, publisher, year, synopsis, _, _, _, _ = cursor.fetchone()
 
         sql = "SELECT author_name FROM book_author NATURAL JOIN author WHERE isbn = %s"
         cursor.execute(sql, (isbn,))
@@ -152,17 +150,18 @@ def get_book_summary(conn, isbn):
         genres = cursor.fetchall()
 
         if isbn is not None:
-            print(f'{title}')
+            print(f'\n{title}')
+            author_str = ', '.join([author[0] for author in authors])
+            print(f'By {author_str}')
             print('-' * len(title))
-            author_str = authors.join(', ')
-            print(f'By {author_str}\n.')
-            print(get_book_stats(conn, isbn))
+            get_book_stats(conn, isbn)
+            print()
 
-
-            print(f'Synopsis: {synopsis}')
-            genre_str = genres.join(', ')
-            print(f'Genres: {genre_str}.\n')
-            print(f'Published {year} by {publisher}. ISBN {isbn}')
+            if synopsis:
+                print(f'Synopsis: {synopsis}')
+            genre_str = ', '.join([genre[0] for genre in genres])
+            print(f'Genres: {genre_str}\n')
+            print(f'Published {year} by {publisher} | ISBN {isbn}')
 
         else:
             print("No book found.")
@@ -170,18 +169,36 @@ def get_book_summary(conn, isbn):
         print("Error getting book summary:", err)
 
 def get_book_stats(conn, isbn):
+    """
+    Get statistics for a book.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        isbn (str): ISBN of the book
+    """
     cursor = conn.cursor()
     try:
         sql = "SELECT * FROM book_review_stats WHERE isbn = %s"
         cursor.execute(sql, (isbn,))
-        isbn, avg_rating, num_ratings, num_reviews = cursor.fetchone()
-        stars = rating_to_stars(avg_rating)
-        print(f'{stars} {avg_rating:.2f} | {num_ratings} ratings | {num_reviews} reviews')
+        result = cursor.fetchone()
+        if result is None:
+            print("No ratings yet.")
+            return
+        isbn, average_rating, num_ratings, num_reviews = result
+        stars = rating_to_stars(average_rating)
+        print(f'{stars} {average_rating:.2f} | {num_ratings} ratings | {num_reviews} reviews')
     except mysql.connector.Error as err:
         print("Error getting book stats:", err)
 
 
 def get_book_reading_time(conn, isbn):
+    """
+    Calculates the reading time for a book.
+
+    Args:
+        conn (MySQL Connection object): connection to the database
+        isbn (str): ISBN of the book
+    """
     cursor = conn.cursor()
     try:
         sql = "SELECT num_pages FROM book WHERE isbn = %s"
@@ -191,10 +208,12 @@ def get_book_reading_time(conn, isbn):
             wpm = int(input("What is your reading speed (words per minute)? Press enter if you don't know: "))
             if wpm is None:
                 wpm = 200
-            minutes = num_pages / wpm
+            sql = "SELECT calculate_reading_time(%s, %s) AS minutes"
+            cursor.execute(sql, (num_pages, wpm))
+            minutes = cursor.fetchone()[0]
             hours = minutes // 60
             minutes = minutes % 60
-            print(f"It will take you: {hours}h and {minutes}m ({num_pages} pages).")
+            print(f"It will take you: {hours}h {minutes}m ({num_pages} pages).")
         else:
             print("No book found.")
     except mysql.connector.Error as err:

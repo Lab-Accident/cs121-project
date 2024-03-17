@@ -4,6 +4,9 @@ Login and authentication functionality for the Goodreads database.
 
 import mysql.connector
 
+# ----------------------------------------------------------------------
+# Functions for Login Actions
+# ----------------------------------------------------------------------
 
 def authentication(conn, as_admin=False):
     """

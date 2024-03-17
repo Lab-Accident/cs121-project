@@ -3,6 +3,7 @@ CREATE DATABASE IF NOT EXISTS goodreads;
 USE goodreads;
 
 -- Clean up tables if they already exist.
+DROP VIEW IF EXISTS book_review_stats;
 DROP TABLE IF EXISTS book_genre;
 DROP TABLE IF EXISTS review;
 DROP TABLE IF EXISTS on_shelf;
@@ -143,6 +144,13 @@ CREATE TABLE review (
 
 -- Add indexes
 CREATE INDEX idx_email ON user_info(email);
+
+-- Create book statistics VIEW
+CREATE VIEW book_review_stats AS
+SELECT isbn, AVG(star_rating) AS average_rating,
+    COUNT(*) AS num_ratings, COUNT(review_text) AS num_reviews
+FROM review
+GROUP BY isbn;
 
 /* CREATE INDEX idx_author ON books(author); */
 
