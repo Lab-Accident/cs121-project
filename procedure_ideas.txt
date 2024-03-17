@@ -38,6 +38,7 @@ Database
 -list all books of a given genres, count
 -list all books of a given publisher, count
 -list all books in a series, count
+-calculate average rating of all books and list in order
 
 Friend-count users friends
 -list users’ friends, count

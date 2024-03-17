@@ -1,8 +1,6 @@
 import mysql.connector
 
 def create_shelf(conn, user_id, shelf_name, is_private=False):
-    #TODO: double check the there isn't a shelf with the same name
-
     cursor = conn.cursor()
     try:
         sql = "INSERT INTO shelves (user_id, shelf_name, is_private) VALUES (%s, %s, %s)"
@@ -24,8 +22,6 @@ def delete_shelf(conn, user_id, shelf_name):
         print("Error deleting shelf:", err)
 
 def add_book_to_shelf(conn, isbn, shelf_name): #TODO: check user_id
-    #TODO: double check the book isn't already on the shelf
-
     cursor = conn.cursor()
     try:
         sql = "INSERT INTO shelf_books (isbn, shelf_name) VALUES (%s, %s)"

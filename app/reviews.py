@@ -4,12 +4,22 @@ import mysql.connector
 # Functions for Review Operations
 # ----------------------------------------------------------------------
 def add_review(conn, user_id, isbn, star_rating, review_text):
-    #TODO: double check the book doesn't already have a review by the user
-    #TODO: if it does, ask if they want to modify the review
-
     cursor = conn.cursor()
     try:
-        sql = "INSERT INTO reviews (user_id, isbn, star_rating, review_text) VALUES (%s, %s, %s, %s)"
+        cursor.execute("SELECT COUNT(*) FROM review WHERE user_id = %s AND isbn = %s", (user_id, isbn))
+        count = cursor.fetchone()[0]
+        if count > 0:
+            modify = input("You have already reviewed this book. Do you want to modify your review? (yes/no): ").strip().lower()
+            if modify == "yes":
+                sql = "UPDATE review SET star_rating = %s, review_text = %s WHERE user_id = %s AND isbn = %s"
+                cursor.execute(sql, (star_rating, review_text, user_id, isbn))
+                conn.commit()
+                print("Review modified successfully!")
+                return
+            else:
+                print("Review not modified.")
+                return
+        sql = "INSERT INTO review (user_id, isbn, star_rating, review_text) VALUES (%s, %s, %s, %s)"
         cursor.execute(sql, (user_id, isbn, star_rating, review_text))
         conn.commit()
         print("Review added successfully!")
@@ -17,18 +27,11 @@ def add_review(conn, user_id, isbn, star_rating, review_text):
         print("Error adding review:", err)
 
 
-def delete_review(conn, user_id, isbn, is_admin=False):
+def delete_review(conn, user_id, isbn):
     cursor = conn.cursor()
     try:
-        if is_admin:
-            # For admin users, delete any review
-            # TODO: change to specific which review, not all reviews for a book
-            sql = "DELETE FROM reviews WHERE isbn = %s"
-            cursor.execute(sql, (isbn,))
-        else:
-            # For normal users, delete only their own review
-            sql = "DELETE FROM reviews WHERE user_id = %s AND isbn = %s"
-            cursor.execute(sql, (user_id, isbn))
+        sql = "DELETE FROM reviews WHERE user_id = %s AND isbn = %s"
+        cursor.execute(sql, (user_id, isbn))
         conn.commit()
         print("Review(s) deleted successfully!")
     except mysql.connector.Error as err:
@@ -74,8 +77,12 @@ def add_review_ui(user_id):
     add_review(user_id, isbn, star_rating, review_text)
 
 
-def delete_review_ui(user_id):
+def delete_review_ui(user_id, is_admin=False):
     isbn = input("Enter the ISBN of the book: ")
+    if is_admin:
+        user_id = input("Enter the user ID of the review to delete: ")
+    else:
+        user_id = user_id
     delete_review(user_id, isbn)
 
 

@@ -92,7 +92,9 @@ CREATE TABLE shelf (
     shelf_name VARCHAR(255) NOT NULL,
     is_private BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (shelf_id),
-    FOREIGN KEY (user_id) REFERENCES user_info(user_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES user_info(user_id) ON DELETE CASCADE,
+    -- ensure shelf name is unique for each user
+    UNIQUE (user_id, shelf_name)
 );
 
 -- Represents a book on a shelf.
@@ -102,7 +104,9 @@ CREATE TABLE on_shelf (
     shelf_id INT,
     PRIMARY KEY (isbn, shelf_id),
     FOREIGN KEY (isbn) REFERENCES book(isbn) ON DELETE CASCADE,
-    FOREIGN KEY (shelf_id) REFERENCES shelf(shelf_id) ON DELETE CASCADE
+    FOREIGN KEY (shelf_id) REFERENCES shelf(shelf_id) ON DELETE CASCADE,
+    -- ensure a book is only on a shelf once
+    UNIQUE (isbn, shelf_id)
 );
 
 CREATE TABLE book_genre (
