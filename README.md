@@ -18,6 +18,8 @@ To test some queries, run:
 
 - `source queries.sql`
 
+You can also use `source goodreads-all-setup.sql` file to execute all of these commands. (Just uncomment the queries line if you want to see them.)
+
 # Application
 
 To run the application, `quit` MySQL and run `python3 goodreads/app.py` in your terminal.

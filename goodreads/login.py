@@ -58,7 +58,6 @@ def login_loop(conn, as_admin=False):
     while num_tries < 3:
         user_id = authentication(conn, as_admin)
         if user_id is not None:
-            print()  # blank line for spacing
             return user_id
         num_tries += 1
         print(f'You have {3 - num_tries} tries left.')

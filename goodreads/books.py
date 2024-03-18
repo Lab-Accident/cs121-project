@@ -134,12 +134,19 @@ def get_book_summary(conn, isbn):
     Args:
         conn (MySQL Connection object): connection to the database
         isbn (str): ISBN of the book
+
+    Returns:
+        bool: True if the book was found, False otherwise
     """
     cursor = conn.cursor()
     try:
         sql = "SELECT * FROM book WHERE isbn = %s"
         cursor.execute(sql, (isbn,))
-        isbn, title, publisher, year, synopsis, _, _, _, _ = cursor.fetchone()
+        result = cursor.fetchone()
+        if result is None:
+            print("No book found.")
+            return
+        isbn, title, publisher, year, synopsis, _, _, _, _ = result
 
         sql = "SELECT author_name FROM book_author NATURAL JOIN author WHERE isbn = %s"
         cursor.execute(sql, (isbn,))
@@ -163,10 +170,13 @@ def get_book_summary(conn, isbn):
             print(f'Genres: {genre_str}\n')
             print(f'Published {year} by {publisher} | ISBN {isbn}')
             print('-' * len(title))
+            return True
         else:
             print("No book found.")
+            return False
     except mysql.connector.Error as err:
         print("Error getting book summary:", err)
+        return False
 
 def get_book_stats(conn, isbn):
     """

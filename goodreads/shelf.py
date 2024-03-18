@@ -138,7 +138,7 @@ def display_shelf(conn, shelf_id):
     cursor = conn.cursor()
     try:
         # get the books on the shelf
-        sql = "SELECT b.isbn, b.title FROM on_shelf NATURAL JOIN book WHERE shelf_id = %s"
+        sql = "SELECT isbn, title FROM on_shelf NATURAL JOIN book WHERE shelf_id = %s"
         cursor.execute(sql, (shelf_id,))
         results = cursor.fetchall()
         if not results:
@@ -146,7 +146,7 @@ def display_shelf(conn, shelf_id):
         else:
             print("Books on this shelf:")
             for row in results:
-                print(f"ISBN: {row[0]}, Title: {row[1]}, Author: {row[2]}")
+                print(f"ISBN: {row[0]} | Title: {row[1]}")
     except mysql.connector.Error as err:
         print("Error displaying shelf:", err)
 
@@ -190,7 +190,7 @@ def delete_shelf_ui(conn, user_id):
             return
 
         # check the shelf is not a default shelf
-        if shelf_name in default_shelves:
+        if shelf_name[0] in default_shelves:
             print("You cannot delete a default shelf.")
             return
 

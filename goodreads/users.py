@@ -51,6 +51,9 @@ def print_user_info(conn, user_id):
     Args:
         conn (MySQL Connection object): connection to the database
         user_id (int): the user's ID
+
+    Returns:
+        bool: True if the user was found, False otherwise
     """
     cursor = conn.cursor()
     try:
@@ -61,7 +64,10 @@ def print_user_info(conn, user_id):
             first_name, last_name, join_date = result
             print(f"{first_name} {last_name}'s Page:")
             print(f"ID: #{user_id} | Joined: {join_date}")
+            return True
         else:
             print("User not found.")
+            return False
     except mysql.connector.Error as err:
         print("Error printing user info:", err)
+        return False

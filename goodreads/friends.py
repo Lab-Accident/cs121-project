@@ -120,7 +120,12 @@ def add_friend_ui(conn, user_id, friend_id=None):
         print("You can search for friends by name or email to find their user ID.")
         print("If you'd like to go back, enter '0' instead of a user ID.")
 
-        friend_id = int(input("\nWhat is your friend's user ID? "))
+        friend_id = input("\nWhat is your friend's user ID? ")
+        if friend_id.isdigit():
+            friend_id = int(friend_id)
+        else:
+            print("Invalid user ID.")
+            return
 
     if friend_id != 0:
         add_friend(conn, user_id, friend_id)
@@ -135,7 +140,12 @@ def delete_friend_ui(conn, user_id, friend_id=None):
         print("You can search for friends by name or email to find their user ID.")
         print("If you'd like to go back, enter '0' instead of a user ID.")
 
-        friend_id = int(input("\nWhat is your friend's user ID? "))
+        friend_id = input("\nWhat is your friend's user ID? ")
+        if friend_id.isdigit():
+            friend_id = int(friend_id)
+        else:
+            print("Invalid user ID.")
+            return
 
     if friend_id != 0:
         delete_friend(conn, user_id, friend_id)

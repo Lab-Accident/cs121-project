@@ -2,8 +2,8 @@
 DROP PROCEDURE IF EXISTS add_authors;
 DROP PROCEDURE IF EXISTS add_genres;
 DROP PROCEDURE IF EXISTS add_book;
-DROP TRIGGER IF EXISTS auto_add_to_read_shelf;
-DROP TRIGGER IF EXISTS auto_delete_from_to_read_shelf;
+DROP FUNCTION IF EXISTS calculate_reading_time;
+DROP TRIGGER IF EXISTS auto_add_to_has_read_shelf;
 
 -- Functions
 DELIMITER !
@@ -130,59 +130,28 @@ DELIMITER ;
 
 -- Triggers
 
--- Add a trigger to automatically add books to the "to-read" shelf
--- when they are added to another of the user's shelves
+-- Add a trigger to add a book to "Has Read" after a user reviews it
+-- If a user is reviewing a book, it should mean they have read it
 DELIMITER !
-CREATE TRIGGER auto_add_to_read_shelf
-AFTER INSERT ON on_shelf
+CREATE TRIGGER auto_add_to_has_read_shelf
+AFTER INSERT ON review
 FOR EACH ROW
 BEGIN
-    DECLARE curr_user_id INT;
-
-    SELECT user_id INTO curr_user_id FROM shelf
-        WHERE shelf_id = NEW.shelf_id;
-
     -- Check if the book is not in has read for the user
     IF NOT EXISTS (
         SELECT 1
-        FROM on_shelf os
-        JOIN shelf s ON os.shelf_id = s.shelf_id
-        WHERE os.isbn = NEW.isbn
-        AND s.user_id = curr_user_id
-        AND s.shelf_name = 'Has Read'
+        FROM on_shelf NATURAL JOIN shelf
+        WHERE isbn = NEW.isbn
+        AND user_id = NEW.user_id
+        AND shelf_name = 'Has Read'
     ) THEN
-        -- Insert the book into the to read shelf
+        -- Insert the book into the has read shelf
         INSERT INTO on_shelf (isbn, shelf_id)
         SELECT NEW.isbn, shelf_id
         FROM shelf
-        WHERE user_id = curr_user_id
-        AND shelf_name = 'To Read'
+        WHERE user_id = NEW.user_id
+        AND shelf_name = 'Has Read'
         LIMIT 1;
     END IF;
-END !
-DELIMITER ;
-
-
--- Add a trigger to automatically delete books from the "to-read" shelf
-DELIMITER !
-CREATE TRIGGER auto_delete_from_to_read_shelf
-AFTER INSERT ON on_shelf
-FOR EACH ROW
-BEGIN
-    DECLARE curr_user_id INT;
-
-    SELECT user_id INTO curr_user_id FROM shelf
-        WHERE shelf_id = NEW.shelf_id;
-
-    -- Delete from the to read shelf if added to has read shelf
-    DELETE FROM on_shelf
-    WHERE isbn = NEW.isbn
-    AND shelf_id = (
-        SELECT shelf_id
-        FROM shelf
-        WHERE user_id = curr_user_id
-        AND shelf_name = 'To Read'
-        LIMIT 1
-    );
 END !
 DELIMITER ;
