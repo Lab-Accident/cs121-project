@@ -1,0 +1,271 @@
+This is just a long flow showing an example admin using the app.
+Notably, admins can log in as users, but users cannot log in as admins.
+
+madisonramos@Madisons-MacBook-Pro-2 cs121-project % python3 goodreads/app.py
+Welcome to Goodreads! Are you logging in as an admin or a user?
+  (1) Admin
+  (2) User
+Enter an option: 1
+Successfully connected to the Goodreads database!
+
+Would you to log in or create an account?
+  (1) Log in
+  (2) Create an account
+Enter an option: 1
+
+What is your email? maddieramos123@gmail.com
+What is your password? password
+You are trying to sign in as an admin.
+You have 2 tries left.
+What is your email? maddie@caltech.edu
+What is your password? password1
+Welcome!
+
+What would you like to do?
+  (1) Edit Books
+  (q) quit
+Enter an option: 1
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Add a book
+  (4) Delete a book
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+Enter the title of the book to search for: Harry Potter and the
+Search Results:
+ISBN: 9780439064866, Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+ISBN: 9780439358071, Title: Harry Potter and the Order of the Phoenix (Harry Potter  #5)
+ISBN: 9780439554893, Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+ISBN: 9780439655484, Title: Harry Potter and the Prisoner of Azkaban (Harry Potter  #3)
+ISBN: 9780439785969, Title: Harry Potter and the Half-Blood Prince (Harry Potter  #6)
+ISBN: 9780747546245, Title: Harry Potter and the Goblet of Fire (Harry Potter  #4)
+ISBN: 9780747573623, Title: Harry Potter and the Prisoner of Azkaban (Harry Potter  #3)
+ISBN: 9780747584667, Title: Harry Potter and the Half-Blood Prince (Harry Potter  #6)
+ISBN: 9780786222728, Title: Harry Potter and the Sorcerer's Stone (Harry Potter  #1)
+ISBN: 9781582346816, Title: Harry Potter and the Philosopher's Stone (Harry Potter  #1)
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Add a book
+  (4) Delete a book
+  (b) Go back
+  (q) Quit
+Enter an option: 2
+
+Enter the author of the book to search for: rowling
+Search Results:
+ISBN: 9780439064866, Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+ISBN: 9780439321600, Title: Fantastic Beasts and Where to Find Them (Hogwarts Library)
+ISBN: 9780439321624, Title: Harry Potter Schoolbooks Box Set: Two Classic Books from the Library of Hogwarts School of Witchcraft and Wizardry
+ISBN: 9780439358071, Title: Harry Potter and the Order of the Phoenix (Harry Potter  #5)
+ISBN: 9780439554893, Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+ISBN: 9780439655484, Title: Harry Potter and the Prisoner of Azkaban (Harry Potter  #3)
+ISBN: 9780439682589, Title: Harry Potter Boxed Set  Books 1-5 (Harry Potter  #1-5)
+ISBN: 9780439785969, Title: Harry Potter and the Half-Blood Prince (Harry Potter  #6)
+ISBN: 9780439827607, Title: Harry Potter Collection (Harry Potter  #1-6)
+ISBN: 9780613359603, Title: Harry Potter Y La Piedra Filosofal (Harry Potter  #1)
+ISBN: 9780747546245, Title: Harry Potter and the Goblet of Fire (Harry Potter  #4)
+ISBN: 9780747573623, Title: Harry Potter and the Prisoner of Azkaban (Harry Potter  #3)
+ISBN: 9780747584667, Title: Harry Potter and the Half-Blood Prince (Harry Potter  #6)
+ISBN: 9780786222728, Title: Harry Potter and the Sorcerer's Stone (Harry Potter  #1)
+ISBN: 9781582346816, Title: Harry Potter and the Philosopher's Stone (Harry Potter  #1)
+ISBN: 9781582348254, Title: Harrius Potter et Philosophi Lapis
+ISBN: 9781599900674, Title: Harrius Potter et Camera Secretorum
+ISBN: 9783551552099, Title: Harry Potter und die Kammer des Schreckens (Harry Potter  #2)
+ISBN: 9783551552105, Title: Harry Potter und der Gefangene von Askaban (Harry Potter  #3)
+ISBN: 9783570211021, Title: Harry Potter ve Sırlar Odası (Harry Potter  #2)
+ISBN: 9783895849619, Title: Harry Potter und der Gefangene von Askaban (Harry Potter  #3)
+ISBN: 9788478888849, Title: Harry Potter y la Orden del Fénix (Harry Potter  #5)
+ISBN: 9788478889938, Title: Harry Potter y el misterio del príncipe (Harry Potter  #6)
+ISBN: 9789573318316, Title: 火盃的考驗 (哈利波特  #4)
+ISBN: 9789573321743, Title: 混血王子的背叛 (哈利波特  #6)
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Add a book
+  (4) Delete a book
+  (b) Go back
+  (q) Quit
+Enter an option: 4
+
+Enter the ISBN of the book to delete: 9789573318316
+Book (ISBN #9789573318316) deleted successfully!
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Add a book
+  (4) Delete a book
+  (b) Go back
+  (q) Quit
+Enter an option: 2
+
+Enter the author of the book to search for: rowling
+Search Results:
+ISBN: 9780439064866, Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+ISBN: 9780439321600, Title: Fantastic Beasts and Where to Find Them (Hogwarts Library)
+ISBN: 9780439321624, Title: Harry Potter Schoolbooks Box Set: Two Classic Books from the Library of Hogwarts School of Witchcraft and Wizardry
+ISBN: 9780439358071, Title: Harry Potter and the Order of the Phoenix (Harry Potter  #5)
+ISBN: 9780439554893, Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+ISBN: 9780439655484, Title: Harry Potter and the Prisoner of Azkaban (Harry Potter  #3)
+ISBN: 9780439682589, Title: Harry Potter Boxed Set  Books 1-5 (Harry Potter  #1-5)
+ISBN: 9780439785969, Title: Harry Potter and the Half-Blood Prince (Harry Potter  #6)
+ISBN: 9780439827607, Title: Harry Potter Collection (Harry Potter  #1-6)
+ISBN: 9780613359603, Title: Harry Potter Y La Piedra Filosofal (Harry Potter  #1)
+ISBN: 9780747546245, Title: Harry Potter and the Goblet of Fire (Harry Potter  #4)
+ISBN: 9780747573623, Title: Harry Potter and the Prisoner of Azkaban (Harry Potter  #3)
+ISBN: 9780747584667, Title: Harry Potter and the Half-Blood Prince (Harry Potter  #6)
+ISBN: 9780786222728, Title: Harry Potter and the Sorcerer's Stone (Harry Potter  #1)
+ISBN: 9781582346816, Title: Harry Potter and the Philosopher's Stone (Harry Potter  #1)
+ISBN: 9781582348254, Title: Harrius Potter et Philosophi Lapis
+ISBN: 9781599900674, Title: Harrius Potter et Camera Secretorum
+ISBN: 9783551552099, Title: Harry Potter und die Kammer des Schreckens (Harry Potter  #2)
+ISBN: 9783551552105, Title: Harry Potter und der Gefangene von Askaban (Harry Potter  #3)
+ISBN: 9783570211021, Title: Harry Potter ve Sırlar Odası (Harry Potter  #2)
+ISBN: 9783895849619, Title: Harry Potter und der Gefangene von Askaban (Harry Potter  #3)
+ISBN: 9788478888849, Title: Harry Potter y la Orden del Fénix (Harry Potter  #5)
+ISBN: 9788478889938, Title: Harry Potter y el misterio del príncipe (Harry Potter  #6)
+ISBN: 9789573321743, Title: 混血王子的背叛 (哈利波特  #6)
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Add a book
+  (4) Delete a book
+  (b) Go back
+  (q) Quit
+Enter an option: 3
+
+Enter the details of the new book:
+ISBN: 9781368051439
+Title: The Lost Hero
+Author (if multiple, enter one at a time): Rick Riordan
+Would you like to add another author? (y/n) n
+Genre (if multiple, enter one at a time): Fantasy
+Would you like to add another genre? (y/n) y
+Genre (if multiple, enter one at a time): Mythology
+Would you like to add another genre? (y/n) y
+Genre (if multiple, enter one at a time): Young Adult
+Would you like to add another genre? (y/n) y
+Genre (if multiple, enter one at a time): Fiction
+Would you like to add another genre? (y/n) n
+Publication year: 2010
+Publisher: Disney-Hyperion Books
+Language code (eng for English): eng
+Number of pages: 576
+Enter a synopsis (optional): JASON HAS A PROBLEM. He doesn’t remember anything before waking up in a bus full of kids on a field trip. Apparently he has a girlfriend named Piper, and his best friend is a guy named Leo. They’re all students at the Wilderness School, a boarding school for “bad kids," as Leo puts it. What did Jason do to end up here? And where is here, exactly? Jason doesn't know anything—except that everything seems very wrong.
+Enter the cover photo URL (optional): https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1464201003i/7736182.jpg
+Enter the series name (if available, optional): The Heroes of Olympus
+Book (ISBN #9781368051439) added successfully!
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Add a book
+  (4) Delete a book
+  (b) Go back
+  (q) Quit
+Enter an option: 2
+
+Enter the author of the book to search for: riordan
+Search Results:
+ISBN: 9780786282258, Title: The Lightning Thief (Percy Jackson and the Olympians  #1)
+ISBN: 9780786838653, Title: The Lightning Thief (Percy Jackson and the Olympians  #1)
+ISBN: 9780786856862, Title: The Sea of Monsters (Percy Jackson and the Olympians  #2)
+ISBN: 9781368051439, Title: The Lost Hero
+ISBN: 9781423101451, Title: The Titan's Curse (Percy Jackson and the Olympians  #3)
+ISBN: 9781423103349, Title: The Sea of Monsters (Percy Jackson and the Olympians  #2)
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Add a book
+  (4) Delete a book
+  (b) Go back
+  (q) Quit
+Enter an option: q
+
+Goodbye!
+madisonramos@Madisons-MacBook-Pro-2 cs121-project % python3 goodreads/app.py
+Welcome to Goodreads! Are you logging in as an admin or a user?
+  (1) Admin
+  (2) User
+Enter an option: 2
+Successfully connected to the Goodreads database!
+
+Would you to log in or create an account?
+  (1) Log in
+  (2) Create an account
+Enter an option: 1
+
+What is your email? maddie@caltech.edu
+What is your password? password1
+Welcome!
+
+Where would you like to go?
+  (1) Go to your profile
+  (2) Search for books
+  (q) Quit
+Enter an option: 2
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Open a book's page
+  (b) Go back
+  (q) Quit
+Enter an option: 2
+
+Enter the author of the book to search for: riordan
+Search Results:
+ISBN: 9780786282258, Title: The Lightning Thief (Percy Jackson and the Olympians  #1)
+ISBN: 9780786838653, Title: The Lightning Thief (Percy Jackson and the Olympians  #1)
+ISBN: 9780786856862, Title: The Sea of Monsters (Percy Jackson and the Olympians  #2)
+ISBN: 9781368051439, Title: The Lost Hero
+ISBN: 9781423101451, Title: The Titan's Curse (Percy Jackson and the Olympians  #3)
+ISBN: 9781423103349, Title: The Sea of Monsters (Percy Jackson and the Olympians  #2)
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Open a book's page
+  (b) Go back
+  (q) Quit
+Enter an option: 3
+
+Enter the ISBN of the book to open: 9781368051439
+
+The Lost Hero
+By Rick Riordan
+-------------
+No ratings yet.
+
+Synopsis: JASON HAS A PROBLEM. He doesn’t remember anything before waking up in a bus full of kids on a field trip. Apparently he has a girlfriend named Piper, and his best friend is a guy named Leo. They’re all students at the Wilderness School, a boarding school for “bad kids," as Leo puts it. What did Jason do to end up here? And where is here, exactly? Jason doesn't know anything—except that everything seems very wrong.
+Genres: Fantasy, Fiction, Mythology, Young Adult
+
+Published 2010 by Disney-Hyperion Books | ISBN 9781368051439
+-------------
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: q
+
+Goodbye!

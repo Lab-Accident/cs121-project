@@ -1,0 +1,626 @@
+This is just a long flow showing an example user using the app.
+
+madisonramos@Madisons-MacBook-Pro-2 cs121-project % python3 goodreads/app.py
+Welcome to Goodreads! Are you logging in as an admin or a user?
+  (1) Admin
+  (2) User
+Enter an option: 2
+Successfully connected to the Goodreads database!
+
+Would you to log in or create an account?
+  (1) Log in
+  (2) Create an account
+Enter an option: 2
+
+Please enter the following information to create an account:
+Email: maddieramos123@gmail.com
+Password: password
+First name: Madison
+Last name: Ramos
+User created successfully! Log in with your new account.
+
+
+Would you to log in or create an account?
+  (1) Log in
+  (2) Create an account
+Enter an option: 1
+
+What is your email? maddieramos123@gmail.com
+What is your password? as
+Invalid email or password.
+You have 2 tries left.
+What is your email? maddieramos123@gmail.com
+What is your password? password
+Welcome!
+
+Where would you like to go?
+  (1) Go to your profile
+  (2) Search for books
+  (q) Quit
+Enter an option: 1
+
+
+Madison Ramos's Page:
+ID: #514 | Joined: 2024-03-17 17:25:49
+
+What would you like to do?
+  (1) View shelves
+  (2) Open your friends menu
+  (3) Open your shelf menu
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+Shelf ID: 4106 | Shelf Name: Currently Reading
+Shelf ID: 4104 | Shelf Name: Favorites
+Shelf ID: 4105 | Shelf Name: Has Read
+Shelf ID: 4107 | Shelf Name: Wants to Read
+
+Would you like to open a shelf? (y/n): n
+
+Madison Ramos's Page:
+ID: #514 | Joined: 2024-03-17 17:25:49
+
+What would you like to do?
+  (1) View shelves
+  (2) Open your friends menu
+  (3) Open your shelf menu
+  (b) Go back
+  (q) Quit
+Enter an option: 2
+
+
+What would you like to do?
+  (1) Add a friend
+  (2) Remove a friend
+  (3) Search for friends by name
+  (4) Search for friends by email
+  (5) View current friends
+  (6) View a user's profile
+  (b) Go back
+  (q) Quit
+Enter an option: 5
+
+Your friends:
+
+What would you like to do?
+  (1) Add a friend
+  (2) Remove a friend
+  (3) Search for friends by name
+  (4) Search for friends by email
+  (5) View current friends
+  (6) View a user's profile
+  (b) Go back
+  (q) Quit
+Enter an option: 3
+
+Enter the name of the friend to search for: Madison
+Search Results:
+ID: #395, Name: Madison Russo, Email: madison_russo@yahoo.com
+ID: #422, Name: Madison Spencer, Email: mspencerwar@hotmail.com
+ID: #514, Name: Madison Ramos, Email: maddieramos123@gmail.com
+
+
+What would you like to do?
+  (1) Add a friend
+  (2) Remove a friend
+  (3) Search for friends by name
+  (4) Search for friends by email
+  (5) View current friends
+  (6) View a user's profile
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+To add a friend, you need to know their user ID.
+You can search for friends by name or email to find their user ID.
+If you'd like to go back, enter '0' instead of a user ID.
+
+What is your friend's user ID? 395
+You are now friends with user #395.
+
+What would you like to do?
+  (1) Add a friend
+  (2) Remove a friend
+  (3) Search for friends by name
+  (4) Search for friends by email
+  (5) View current friends
+  (6) View a user's profile
+  (b) Go back
+  (q) Quit
+Enter an option: 5
+
+Your friends:
+ID: #395, Name: Madison Russo, Email: madison_russo@yahoo.com
+
+What would you like to do?
+  (1) Add a friend
+  (2) Remove a friend
+  (3) Search for friends by name
+  (4) Search for friends by email
+  (5) View current friends
+  (6) View a user's profile
+  (b) Go back
+  (q) Quit
+Enter an option: 6
+
+Enter the user ID of the friend to view: 395
+
+Madison Russo's Page:
+ID: #395 | Joined: 2023-06-14 13:26:56
+
+What would you like to do?
+  (1) View shelves
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+Shelf ID: 2554 | Shelf Name: Currently Reading
+Shelf ID: 2551 | Shelf Name: Favorites
+Shelf ID: 2552 | Shelf Name: Has Read
+Shelf ID: 2555 | Shelf Name: Nearly Figure Last Down Religious Throw
+Shelf ID: 2553 | Shelf Name: Wants to Read
+
+Would you like to open a shelf? (y/n): y
+Enter the id of the shelf to display: 2555
+Books on this shelf:
+ISBN: 9780006514640 | Title: The Wise Woman
+ISBN: 9780060609177 | Title: Meeting Jesus Again for the First Time: The Historical Jesus and the Heart of Contemporary Faith
+ISBN: 9780060793197 | Title: The 3-Hour Diet: On the Go
+ISBN: 9780143035169 | Title: Jane Austen: A Life
+ISBN: 9780316139243 | Title: Catch That Pass!
+ISBN: 9780765341280 | Title: Rebekah (Women of Genesis  #2)
+ISBN: 9780800871864 | Title: Silence
+ISBN: 9781400079377 | Title: Company
+ISBN: 9781593075293 | Title: Eden: It's an Endless World  Volume 3 (Eden: It's an Endless World  #3)
+
+Madison Russo's Page:
+ID: #395 | Joined: 2023-06-14 13:26:56
+
+What would you like to do?
+  (1) View shelves
+  (b) Go back
+  (q) Quit
+Enter an option: b
+
+
+What would you like to do?
+  (1) Add a friend
+  (2) Remove a friend
+  (3) Search for friends by name
+  (4) Search for friends by email
+  (5) View current friends
+  (6) View a user's profile
+  (b) Go back
+  (q) Quit
+Enter an option: b
+
+
+Madison Ramos's Page:
+ID: #514 | Joined: 2024-03-17 17:25:49
+
+What would you like to do?
+  (1) View shelves
+  (2) Open your friends menu
+  (3) Open your shelf menu
+  (b) Go back
+  (q) Quit
+Enter an option: b
+
+
+Where would you like to go?
+  (1) Go to your profile
+  (2) Search for books
+  (q) Quit
+Enter an option: 2
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Open a book's page
+  (b) Go back
+  (q) Quit
+Enter an option: 2
+
+Enter the author of the book to search for: riordan
+Search Results:
+ISBN: 9780786282258, Title: The Lightning Thief (Percy Jackson and the Olympians  #1)
+ISBN: 9780786838653, Title: The Lightning Thief (Percy Jackson and the Olympians  #1)
+ISBN: 9780786856862, Title: The Sea of Monsters (Percy Jackson and the Olympians  #2)
+ISBN: 9781423101451, Title: The Titan's Curse (Percy Jackson and the Olympians  #3)
+ISBN: 9781423103349, Title: The Sea of Monsters (Percy Jackson and the Olympians  #2)
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Open a book's page
+  (b) Go back
+  (q) Quit
+Enter an option: 3
+
+Enter the ISBN of the book to open: 9781423103349
+
+The Sea of Monsters (Percy Jackson and the Olympians  #2)
+By Rick Riordan
+---------------------------------------------------------
+★★★★☆ 4.90 | 1 ratings | 0 reviews
+
+Synopsis: Discover old impact bill option customer most audience. Friend glass contain base tonight. Assume and current pick send eye price protect. Entire agree number property successful buy. Sport decision store hold manage dog. Ahead above reality weight theory maintain serve.
+Genres: LGBTQ+, Math, Philosophy, Political Science
+
+Published 2007 by Disney Hyperion Books | ISBN 9781423103349
+---------------------------------------------------------
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: 2
+
+Enter your star rating (1-5): 5
+Enter your review: I love this book so much! Great childhood memories.
+Review added successfully!
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: 3
+
+User ID: 413 | Star Rating: 4.9
+Review: None
+User ID: 514 | Star Rating: 5.0
+Review: I love this book so much! Great childhood memories.
+
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: 4
+
+What is your reading speed (words per minute)? Press enter if you don't know:
+It will take you: 5h 50m (280 pages).
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: 4
+
+What is your reading speed (words per minute)? Press enter if you don't know: 400
+It will take you: 2h 55m (280 pages).
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+
+Here are your shelves:
+Shelf ID: 4106 | Shelf Name: Currently Reading
+Shelf ID: 4104 | Shelf Name: Favorites
+Shelf ID: 4105 | Shelf Name: Has Read
+Shelf ID: 4107 | Shelf Name: Wants to Read
+
+
+Enter the ID of the shelf to add the book to: 4104
+Book added to shelf successfully!
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: b
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Open a book's page
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+Enter the title of the book to search for: harry potter and the
+Search Results:
+ISBN: 9780439064866, Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+ISBN: 9780439358071, Title: Harry Potter and the Order of the Phoenix (Harry Potter  #5)
+ISBN: 9780439554893, Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+ISBN: 9780439655484, Title: Harry Potter and the Prisoner of Azkaban (Harry Potter  #3)
+ISBN: 9780439785969, Title: Harry Potter and the Half-Blood Prince (Harry Potter  #6)
+ISBN: 9780747546245, Title: Harry Potter and the Goblet of Fire (Harry Potter  #4)
+ISBN: 9780747573623, Title: Harry Potter and the Prisoner of Azkaban (Harry Potter  #3)
+ISBN: 9780747584667, Title: Harry Potter and the Half-Blood Prince (Harry Potter  #6)
+ISBN: 9780786222728, Title: Harry Potter and the Sorcerer's Stone (Harry Potter  #1)
+ISBN: 9781582346816, Title: Harry Potter and the Philosopher's Stone (Harry Potter  #1)
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Open a book's page
+  (b) Go back
+  (q) Quit
+Enter an option: 3
+
+Enter the ISBN of the book to open: 9780439064866
+
+Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+By J.K. Rowling, Mary GrandPré
+----------------------------------------------------------
+No ratings yet.
+
+Synopsis: Stand off onto always. Else four discover itself land region director record. Our look term. Church provide concern above.
+Genres: Dystopian, Mystery, Television
+
+Published 1999 by Arthur A. Levine Books / Scholastic Inc. | ISBN 9780439064866
+----------------------------------------------------------
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+
+Here are your shelves:
+Shelf ID: 4106 | Shelf Name: Currently Reading
+Shelf ID: 4104 | Shelf Name: Favorites
+Shelf ID: 4105 | Shelf Name: Has Read
+Shelf ID: 4107 | Shelf Name: Wants to Read
+
+
+Enter the ID of the shelf to add the book to: 4106
+Book added to shelf successfully!
+
+What would you like to do?
+  (1) Add to shelf
+  (2) Rate book
+  (3) Read reviews
+  (4) Get a reading time estimate
+  (b) Go back
+  (q) Quit
+Enter an option: b
+
+
+What would you like to do?
+  (1) Search for books by title
+  (2) Search for books by author
+  (3) Open a book's page
+  (b) Go back
+  (q) Quit
+Enter an option: b
+
+
+Where would you like to go?
+  (1) Go to your profile
+  (2) Search for books
+  (q) Quit
+Enter an option: 1
+
+
+Madison Ramos's Page:
+ID: #514 | Joined: 2024-03-17 17:25:49
+
+What would you like to do?
+  (1) View shelves
+  (2) Open your friends menu
+  (3) Open your shelf menu
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+Shelf ID: 4106 | Shelf Name: Currently Reading
+Shelf ID: 4104 | Shelf Name: Favorites
+Shelf ID: 4105 | Shelf Name: Has Read
+Shelf ID: 4107 | Shelf Name: Wants to Read
+
+Would you like to open a shelf? (y/n): y
+Enter the id of the shelf to display: 4105
+Books on this shelf:
+ISBN: 9781423103349 | Title: The Sea of Monsters (Percy Jackson and the Olympians  #2)
+
+Madison Ramos's Page:
+ID: #514 | Joined: 2024-03-17 17:25:49
+
+What would you like to do?
+  (1) View shelves
+  (2) Open your friends menu
+  (3) Open your shelf menu
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+Shelf ID: 4106 | Shelf Name: Currently Reading
+Shelf ID: 4104 | Shelf Name: Favorites
+Shelf ID: 4105 | Shelf Name: Has Read
+Shelf ID: 4107 | Shelf Name: Wants to Read
+
+Would you like to open a shelf? (y/n): y
+Enter the id of the shelf to display: 4106
+Books on this shelf:
+ISBN: 9780439064866 | Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+
+Madison Ramos's Page:
+ID: #514 | Joined: 2024-03-17 17:25:49
+
+What would you like to do?
+  (1) View shelves
+  (2) Open your friends menu
+  (3) Open your shelf menu
+  (b) Go back
+  (q) Quit
+Enter an option: 3
+
+
+What would you like to do?
+  (1) Create a new shelf
+  (2) Delete a shelf
+  (3) Add a book to a shelf
+  (4) Remove a book from a shelf
+  (5) Display all books on a shelf
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+Enter the name of the new shelf: Fantasy Favorites <3
+Is the shelf private? (y/n): n
+Shelf created successfully!
+
+What would you like to do?
+  (1) Create a new shelf
+  (2) Delete a shelf
+  (3) Add a book to a shelf
+  (4) Remove a book from a shelf
+  (5) Display all books on a shelf
+  (b) Go back
+  (q) Quit
+Enter an option: 3
+
+Enter the ISBN of the book to add: 9780439064866
+
+Here are your shelves:
+Shelf ID: 4106 | Shelf Name: Currently Reading
+Shelf ID: 4108 | Shelf Name: Fantasy Favorites <3
+Shelf ID: 4104 | Shelf Name: Favorites
+Shelf ID: 4105 | Shelf Name: Has Read
+Shelf ID: 4107 | Shelf Name: Wants to Read
+
+
+Enter the ID of the shelf to add the book to: 4108
+Book added to shelf successfully!
+
+What would you like to do?
+  (1) Create a new shelf
+  (2) Delete a shelf
+  (3) Add a book to a shelf
+  (4) Remove a book from a shelf
+  (5) Display all books on a shelf
+  (b) Go back
+  (q) Quit
+Enter an option: 5
+
+Enter the id of the shelf to display: 4108
+Books on this shelf:
+ISBN: 9780439064866 | Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+
+What would you like to do?
+  (1) Create a new shelf
+  (2) Delete a shelf
+  (3) Add a book to a shelf
+  (4) Remove a book from a shelf
+  (5) Display all books on a shelf
+  (b) Go back
+  (q) Quit
+Enter an option: 4
+
+
+Here are your shelves:
+Shelf ID: 4106 | Shelf Name: Currently Reading
+Shelf ID: 4108 | Shelf Name: Fantasy Favorites <3
+Shelf ID: 4104 | Shelf Name: Favorites
+Shelf ID: 4105 | Shelf Name: Has Read
+Shelf ID: 4107 | Shelf Name: Wants to Read
+
+
+Enter the id of the shelf to remove the book from: 4108
+
+Here are the books on that shelf:
+Books on this shelf:
+ISBN: 9780439064866 | Title: Harry Potter and the Chamber of Secrets (Harry Potter  #2)
+
+Enter the ISBN of the book to remove: 9780439064866
+Book removed from shelf successfully!
+
+What would you like to do?
+  (1) Create a new shelf
+  (2) Delete a shelf
+  (3) Add a book to a shelf
+  (4) Remove a book from a shelf
+  (5) Display all books on a shelf
+  (b) Go back
+  (q) Quit
+Enter an option: 5
+
+Enter the id of the shelf to display: 4108
+No books found on this shelf.
+
+What would you like to do?
+  (1) Create a new shelf
+  (2) Delete a shelf
+  (3) Add a book to a shelf
+  (4) Remove a book from a shelf
+  (5) Display all books on a shelf
+  (b) Go back
+  (q) Quit
+Enter an option: 2
+
+Enter the id of the shelf to delete: 4108
+Shelf deleted successfully!
+
+What would you like to do?
+  (1) Create a new shelf
+  (2) Delete a shelf
+  (3) Add a book to a shelf
+  (4) Remove a book from a shelf
+  (5) Display all books on a shelf
+  (b) Go back
+  (q) Quit
+Enter an option: b
+
+
+Madison Ramos's Page:
+ID: #514 | Joined: 2024-03-17 17:25:49
+
+What would you like to do?
+  (1) View shelves
+  (2) Open your friends menu
+  (3) Open your shelf menu
+  (b) Go back
+  (q) Quit
+Enter an option: 1
+
+Shelf ID: 4106 | Shelf Name: Currently Reading
+Shelf ID: 4104 | Shelf Name: Favorites
+Shelf ID: 4105 | Shelf Name: Has Read
+Shelf ID: 4107 | Shelf Name: Wants to Read
+
+Would you like to open a shelf? (y/n): n
+
+Madison Ramos's Page:
+ID: #514 | Joined: 2024-03-17 17:25:49
+
+What would you like to do?
+  (1) View shelves
+  (2) Open your friends menu
+  (3) Open your shelf menu
+  (b) Go back
+  (q) Quit
+Enter an option: q
+
+Goodbye!
