@@ -7,7 +7,6 @@ import mysql.connector
 # ----------------------------------------------------------------------
 # Functions for Review Operations
 # ----------------------------------------------------------------------
-
 def add_review(conn, user_id, isbn, star_rating, review_text):
     """
     Add a review to the database.
@@ -50,6 +49,8 @@ def delete_review(conn, user_id, isbn):
         conn (MySQL Connection object): connection to the database
         user_id (int): the user's ID
         isbn (str): the ISBN of the book to review
+
+    NOTE: This function is not currently used in app.py
     """
     cursor = conn.cursor()
     try:
@@ -71,6 +72,10 @@ def modify_review(conn, user_id, isbn, star_rating, review_text):
         isbn (str): the ISBN of the book to review
         star_rating (float): the star rating (1-5)
         review_text (str): the review text
+
+    NOTE: This function is not currently used in app.py
+    But a user can modify their review by adding a new review with the same ISBN
+    (they will be prompted to modify their review if it already exists)
     """
     cursor = conn.cursor()
     try:
@@ -80,6 +85,7 @@ def modify_review(conn, user_id, isbn, star_rating, review_text):
         print("Review modified successfully!")
     except mysql.connector.Error:
         print("Error modifying review. Make sure you have reviewed this book before.")
+
 
 def get_reviews(conn, isbn):
     """
@@ -133,6 +139,8 @@ def delete_review_ui(conn, user_id, is_admin=False):
         conn (MySQL Connection object): connection to the database
         user_id (int): the user's ID
         is_admin (bool, optional): if the user is an admin; defaults to False.
+
+    NOTE: This function is not currently used in app.py
     """
     if isbn is None:
         isbn = input("Enter the ISBN of the book: ")
@@ -151,6 +159,8 @@ def modify_review_ui(conn, user_id):
     Args:
         conn (MySQL Connection object): connection to the database
         user_id (int): the user's ID
+
+    NOTE: This function is not currently used in app.py
     """
     isbn = input("Enter the ISBN of the book: ")
     star_rating = input("Enter the new star rating (1-5): ")

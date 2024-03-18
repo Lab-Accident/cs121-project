@@ -1,3 +1,7 @@
+"""
+User-related functions for the Goodreads database.
+"""
+
 import mysql.connector
 
 # ----------------------------------------------------------------------
@@ -26,6 +30,7 @@ def add_user(conn, email, password, first_name, last_name, as_admin=False):
     except mysql.connector.Error as err:
         print("Error creating user:", err)
 
+
 def delete_user(conn, user_id):
     """
     Deletes a user from the database.
@@ -43,6 +48,7 @@ def delete_user(conn, user_id):
         conn.commit()
     except mysql.connector.Error as err:
         print("Error deleting user:", err)
+
 
 def print_user_info(conn, user_id):
     """

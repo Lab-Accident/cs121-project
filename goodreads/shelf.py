@@ -1,3 +1,7 @@
+"""
+Shelf-related functions for the Goodreads database.
+"""
+
 import mysql.connector
 
 default_shelves = ["Favorites", "Has Read", "Wants to Read", "Currently Reading"]
@@ -5,13 +9,12 @@ default_shelves = ["Favorites", "Has Read", "Wants to Read", "Currently Reading"
 # ----------------------------------------------------------------------
 # Functions for Shelf Actions
 # ----------------------------------------------------------------------
-
 def view_shelves(conn, user_id):
     """
     Prints the user's shelves.
 
     Args:
-        conn (_type_): _description_
+        conn (MySQL Connection object): connection to the database
         user_id (int): the user's ID
     """
     cursor = conn.cursor()
@@ -154,8 +157,6 @@ def display_shelf(conn, shelf_id):
 # ----------------------------------------------------------------------
 # Command-Line Functionality
 # ----------------------------------------------------------------------
-
-
 def create_shelf_ui(conn, user_id):
     """
     Prompts a user to create a new shelf.

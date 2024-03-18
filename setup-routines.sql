@@ -6,6 +6,8 @@ DROP FUNCTION IF EXISTS calculate_reading_time;
 DROP TRIGGER IF EXISTS auto_add_to_has_read_shelf;
 
 -- Functions
+
+-- Function to calculate the expected reading time of a book
 DELIMITER !
 CREATE FUNCTION calculate_reading_time(
     num_pages INT,

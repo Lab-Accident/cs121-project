@@ -4,10 +4,10 @@ Friend-related functions for the Goodreads database.
 
 import mysql.connector
 
+
 # ----------------------------------------------------------------------
 # Functions for Friend Actions
 # ----------------------------------------------------------------------
-
 def find_friends_by_name(conn, name):
     """
     Find friends by name.
@@ -108,6 +108,7 @@ def search_friend_by_email(conn, email):
     else:
         print("No users were found with that email.")
 
+
 # ----------------------------------------------------------------------
 # Command-Line Functionality
 # ----------------------------------------------------------------------
@@ -150,12 +151,14 @@ def delete_friend_ui(conn, user_id, friend_id=None):
     if friend_id != 0:
         delete_friend(conn, user_id, friend_id)
 
+
 def search_friends_by_name_ui(conn):
     """
     Prompts a user to search for friends by name.
     """
     name = input("Enter the name of the friend to search for: ")
     search_friends_by_name(conn, name)
+
 
 def search_friend_by_email_ui(conn):
     """

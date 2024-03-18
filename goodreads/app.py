@@ -8,15 +8,15 @@ add books to their reading list, and rate books.
 As a user, you can:
 - Create an account
 - Search for books by title, author, or ISBN
-- Create shelves and books to your shelves
+- View book details (summary & review statistics)
+- Create shelves and add books to your shelves
 - Rate books
 - Add friends
-- See your statistics (e.g. number of books read, average rating)
+- View other users' profiles + shelves
 
 As an admin, you can:
-- Modify any of the tables in the database
-- (most notably, the books and users tables)
-- View statistics about the database (e.g. number of users, number of books)
+- Modify the book database (add, delete, search)
+- More functionality for admins would be added in the future
 """
 
 import sys

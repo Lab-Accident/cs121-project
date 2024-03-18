@@ -13,10 +13,10 @@ def rating_to_stars(rating):
     """
     return "★" * int(rating) + "☆" * (5 - int(rating))
 
+
 # ----------------------------------------------------------------------
 # Functions for Book Actions
 # ----------------------------------------------------------------------
-
 def add_new_book(conn):
     """
     Add a new book to the database.

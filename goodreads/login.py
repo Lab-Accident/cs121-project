@@ -7,7 +7,6 @@ import mysql.connector
 # ----------------------------------------------------------------------
 # Functions for Login Actions
 # ----------------------------------------------------------------------
-
 def authentication(conn, as_admin=False):
     """
     Authenticates a user based on their email and password.
