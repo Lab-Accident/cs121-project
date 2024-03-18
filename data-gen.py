@@ -24,7 +24,7 @@ CREATING BOOK.CSV
 PERCENT_SERIES = 0.2
 PERCENT_REVIEW = 0.6
 
-books_df = pd.read_csv("uncleaned_books2.csv")
+books_df = pd.read_csv("uncleaned_books.csv")
 
 imported_columns = ['isbn', 'author', 'title', 'publisher', 'year_published', 'language_code', 'num_pages']
 books_df = books_df[imported_columns]

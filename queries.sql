@@ -94,3 +94,22 @@ SELECT shelf_name, is_private
 FROM shelf
 WHERE (user_id = 1 OR is_private = FALSE)
 AND shelf_name LIKE '%Time%';
+
+-- Get top 10 most reviewed books
+SELECT title, COUNT(*) AS num_reviews
+FROM review NATURAL JOIN book
+GROUP BY isbn
+ORDER BY num_reviews DESC
+LIMIT 10;
+
+-- Get top 10 most highly rated books (excluding books with only one rating)
+SELECT title, average_rating, num_ratings
+FROM book_review_stats NATURAL JOIN book
+WHERE num_ratings >= 2
+ORDER BY average_rating DESC, num_ratings DESC
+LIMIT 10;
+
+-- Get total number of pages read by a user
+SELECT sum(num_pages) AS total_pages_read
+FROM book NATURAL JOIN on_shelf NATURAL JOIN shelf
+WHERE user_id = 1 AND shelf_name = 'Has Read';
